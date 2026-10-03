@@ -1,7 +1,7 @@
 # Baby Luz — Web
 
 Painel web de produção/catálogos — a Fase 0 + 1 do plano de migração (ver documento de
-análise técnica). Stack: Next.js 14 (App Router) + TypeScript + Tailwind + Prisma + NextAuth.
+análise técnica). Stack: Next.js 16 (App Router) + TypeScript + Tailwind + Prisma + NextAuth.
 
 ## Rodar localmente
 
@@ -14,6 +14,17 @@ npm run dev
 ```
 
 Login padrão (seed): `admin@babyluzconfeccao.com.br` / `babyluz2026` — **troque depois do primeiro acesso**.
+
+### Erro "Cannot find module '.prisma/client/default'"
+
+Significa que o Prisma Client não foi gerado. Resolve com:
+
+```bash
+npx prisma generate
+```
+
+(o `npm install` já roda isso automaticamente via `postinstall` — se ainda acontecer depois de
+um `npm install` novo, rode o comando acima manualmente.)
 
 ## O que já está aqui
 
