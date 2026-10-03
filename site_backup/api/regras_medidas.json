@@ -1,0 +1,40 @@
+{
+  "unidade": "mm",
+  "tipos": {
+    "termo_colante": "Termocolante",
+    "adesivo": "Adesivo"
+  },
+  "categorias": {
+    "aplique": {
+      "rotulo": "Aplique",
+      "tipos": {
+        "termo_colante": [
+          {"id": "90", "rotulo": "90 mm", "qtd": 7, "modo": "proporcional", "maior": 90, "menor": null},
+          {"id": "110x100", "rotulo": "110 x 100 mm", "qtd": 10, "modo": "proporcional", "maior": 110, "menor": 100},
+          {"id": "140x120", "rotulo": "140 x 120 mm (fixa)", "qtd": 6, "modo": "fixa", "maior": 140, "menor": 120}
+        ],
+        "adesivo": [
+          {"id": "80", "rotulo": "80 mm", "qtd": 8, "modo": "proporcional", "maior": 80, "menor": null},
+          {"id": "90", "rotulo": "90 mm", "qtd": 7, "modo": "proporcional", "maior": 90, "menor": null},
+          {"id": "110x100", "rotulo": "110 x 100 mm", "qtd": 10, "modo": "proporcional", "maior": 110, "menor": 100},
+          {"id": "140x120", "rotulo": "140 x 120 mm (fixa)", "qtd": 6, "modo": "fixa", "maior": 140, "menor": 120}
+        ]
+      }
+    },
+    "faixa": {
+      "rotulo": "Faixa",
+      "tipos": {
+        "termo_colante": [
+          {"id": "488x111", "rotulo": "488 x 111 mm", "qtd": 10, "modo": "fixa", "maior": 488, "menor": 111},
+          {"id": "290x60", "rotulo": "290 x 60 mm", "qtd": 9, "modo": "fixa", "maior": 290, "menor": 60},
+          {"id": "215x50", "rotulo": "215 x 50 mm", "qtd": 11, "modo": "fixa", "maior": 215, "menor": 50},
+          {"id": "290x55", "rotulo": "290 x 55 mm", "qtd": 10, "modo": "fixa", "maior": 290, "menor": 55},
+          {"id": "215x45", "rotulo": "215 x 45 mm", "qtd": 12, "modo": "fixa", "maior": 215, "menor": 45},
+          {"id": "400x111", "rotulo": "400 x 111 mm", "qtd": 10, "modo": "fixa", "maior": 400, "menor": 111},
+          {"id": "350x111", "rotulo": "350 x 111 mm", "qtd": 10, "modo": "fixa", "maior": 350, "menor": 111},
+          {"id": "290x111", "rotulo": "290 x 111 mm", "qtd": 10, "modo": "fixa", "maior": 290, "menor": 111}
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+<?php
+// Público (só leitura): dados da página "meu pedido" (pedido.html?c=codigo).
+// Junta TODOS os pedidos (pendente + validado) da mesma cliente -- mesmo
+// nome+telefone que o link foi criado -- e devolve as figuras já somadas.
+// Nunca devolve o telefone, e nada aqui escreve no banco (só lê).
+require __DIR__ . '/config.php';
+require __DIR__ . '/pedido_util.php';
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('X-Robots-Tag: noindex, nofollow');
+
+$codigo = trim((string)($_GET['c'] ?? ''));
+if ($codigo === '' || strlen($codigo) > 64) {
+    http_response_code(400);
+    echo json_encode(['erro' => 'código é obrigatório']);
+    exit;
+}
+
+$pdo = get_pdo();
+pedido_garantir_tabela_links($pdo);
+
+$stmt = $pdo->prepare("SELECT nome_exibicao, nome_key, telefone_key FROM pedido_links WHERE codigo = ?");
+$stmt->execute([$codigo]);
+$link = $stmt->fetch();
+if (!$link) {
+    http_response_code(404);
+    echo json_encode(['erro' => 'link não encontrado']);
+    exit;
+}
+
+$linhas = pedido_buscar_itens_da_cliente($pdo, $link['nome_key'], $link['telefone_key']);
+
+// Mesma figura em pedidos diferentes (ou repetida) vira UM card com a
+// quantidade somada; medida diferente da mesma figura continua card separado.
+$agregado = [];
+$pedidos_distintos = [];
+$catalogos = [];
+$figuras = [];
+$total_pecas = 0;
+foreach ($linhas as $l) {
+    $pedidos_distintos[$l['pedido_id']] = true;
+    $catalogos[$l['catalogo_nome']] = true;
+    $figuras[$l['produto_id']] = true;
+    $qtd = (int)$l['quantidade'];
+    $total_pecas += $qtd;
+
+    $chave = $l['produto_id'] . '|' . ($l['medida'] ?? '');
+    if (!isset($agregado[$chave])) {
+        $imagem = '/produtos/' . rawurlencode($l['imagem_arquivo']);
+        $agregado[$chave] = [
+            'catalogo_nome'     => $l['catalogo_nome'],
+            'referencia'        => $l['referencia'],
+            'nome'              => $l['nome'],
+            'medida'            => $l['medida'],
+            'quantidade'        => 0,
+            'imagem_url'        => $imagem,
+            'imagem_grande_url' => $l['imagem_grande_arquivo']
+                ? '/produtos/' . rawurlencode($l['imagem_grande_arquivo'])
+                : $imagem,
+        ];
+    }
+    $agregado[$chave]['quantidade'] += $qtd;
+}
+
+echo json_encode([
+    'cliente_nome' => $link['nome_exibicao'],
+    'totais' => [
+        'pedidos'   => count($pedidos_distintos),
+        'pecas'     => $total_pecas,
+        'figuras'   => count($figuras),
+        'catalogos' => count($catalogos),
+    ],
+    'produtos' => array_values($agregado),
+], JSON_UNESCAPED_UNICODE);

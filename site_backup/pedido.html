@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Baby Luz Confecção — Meu Pedido</title>
+<meta name="description" content="Acompanhe tudo o que você pediu na Baby Luz Confecção.">
+
+<!-- Open Graph / WhatsApp, Facebook, etc. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Baby Luz Confecção — Meu Pedido">
+<meta property="og:description" content="Acompanhe tudo o que você pediu na Baby Luz Confecção.">
+<meta property="og:image" content="https://babyluzconfeccao.com.br/pedido-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Baby Luz Confecção — Meu Pedido">
+<meta name="twitter:image" content="https://babyluzconfeccao.com.br/pedido-preview.jpg">
+
+<style>
+  :root {
+    --rosa: #ff8fab;
+    --rosa-escuro: #e0607f;
+    --azul: #8ecae6;
+    --fundo: #fff5f7;
+    --texto: #4a3540;
+    --card-bg: #ffffff;
+    --sombra: 0 4px 16px rgba(224, 96, 127, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    padding-bottom: 40px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white;
+    padding: 28px 20px 22px;
+    text-align: center;
+    box-shadow: var(--sombra);
+  }
+  header h1 { margin: 0; font-size: 1.5rem; overflow-wrap: anywhere; }
+  header p { margin: 6px 0 0; opacity: .95; font-size: .9rem; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 18px; }
+
+  /* Resumo do pedido: peças / figuras / catálogos (+ nº de pedidos). */
+  #resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .resumo-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .resumo-valor { font-size: 1.7rem; font-weight: 700; color: var(--rosa-escuro); line-height: 1.1; }
+  .resumo-rotulo { font-size: .78rem; color: #9a8790; margin-top: 4px; }
+
+  .secao-catalogo { margin-bottom: 14px; }
+  .catalogo-botao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--rosa-escuro);
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: transform .12s;
+    text-align: left;
+  }
+  .catalogo-botao:hover { transform: translateY(-2px); }
+  .catalogo-botao-nome { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .catalogo-botao-info { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .catalogo-botao-qtd { font-size: .78rem; font-weight: 600; color: #9a8790; }
+  .catalogo-botao-seta { color: var(--rosa); font-size: 1.1rem; transition: transform .2s; }
+  .catalogo-botao.aberto .catalogo-botao-seta { transform: rotate(180deg); }
+
+  .grade-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .produto {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 3px solid var(--rosa);
+    position: relative;
+    padding-bottom: 8px;
+  }
+  .produto img { width: 100%; height: 130px; object-fit: contain; background: white; display: block; cursor: zoom-in; }
+  .produto .ref { font-size: .72rem; color: #9a8790; text-align: center; padding: 6px 4px 2px; overflow-wrap: anywhere; }
+  .produto .medida {
+    display: block; width: fit-content; margin: 4px auto 0;
+    font-size: .72rem; font-weight: 600; color: white; background: var(--azul);
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .produto .qtd {
+    position: absolute; top: 6px; left: 6px;
+    background: var(--rosa); color: white; font-weight: 700; font-size: .8rem;
+    padding: 3px 10px; border-radius: 999px; box-shadow: var(--sombra);
+  }
+
+  #lightbox-overlay {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, 0.78);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200;
+    padding: 24px;
+  }
+  #lightbox-conteudo {
+    position: relative;
+    max-width: min(92vw, 640px);
+    max-height: 88vh;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: var(--sombra);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  #lightbox-conteudo img { max-width: 100%; max-height: 72vh; object-fit: contain; border-radius: 12px; }
+  #lightbox-conteudo .ref { margin-top: 10px; font-size: .95rem; font-weight: 600; color: var(--rosa-escuro); text-align: center; }
+  #lightbox-fechar {
+    position: absolute; top: -14px; right: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--rosa); color: white; border: none;
+    font-size: 1.2rem; line-height: 1; cursor: pointer; box-shadow: var(--sombra);
+  }
+  #lightbox-fechar:hover { background: var(--rosa-escuro); }
+
+  #mensagem { text-align: center; padding: 60px 20px; color: #7a6570; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="titulo-header">Baby Luz Confecção</h1>
+  <p id="subtitulo-header">Seu pedido</p>
+</header>
+
+<main>
+  <div id="mensagem">Carregando seu pedido...</div>
+  <div id="resumo" hidden></div>
+  <div id="grade" hidden></div>
+</main>
+
+<div id="lightbox-overlay" hidden>
+  <div id="lightbox-conteudo">
+    <button type="button" id="lightbox-fechar" aria-label="Fechar">✕</button>
+    <img id="lightbox-imagem" src="" alt="">
+    <div class="ref" id="lightbox-ref"></div>
+  </div>
+</div>
+
+<script>
+const API = '/api';
+const codigo = new URLSearchParams(location.search).get('c');
+
+// Página só de leitura: mostra o pedido e pronto -- não existe botão de
+// adicionar/remover aqui, e pedido_dados.php também só lê do banco.
+carregarPedido();
+
+// Tudo abaixo monta o DOM com textContent (nunca innerHTML com dado vindo do
+// servidor) -- nome da cliente e nome/REF das figuras são texto livre.
+function el(tag, className, texto) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  if (texto !== undefined) e.textContent = texto;
+  return e;
+}
+
+function mostrarMensagem(texto) {
+  const m = document.getElementById('mensagem');
+  m.textContent = texto;
+  m.hidden = false;
+}
+
+async function carregarPedido() {
+  if (!codigo) {
+    mostrarMensagem('Link inválido. Peça um novo link pra Baby Luz.');
+    return;
+  }
+  try {
+    const resp = await fetch(
+      `${API}/pedido_dados.php?c=${encodeURIComponent(codigo)}&_=${Date.now()}`,
+      { cache: 'no-store' });
+    if (resp.status === 404) {
+      mostrarMensagem('Link não encontrado. Peça um novo link pra Baby Luz.');
+      return;
+    }
+    if (!resp.ok) throw new Error('erro ' + resp.status);
+    montarPagina(await resp.json());
+  } catch (e) {
+    mostrarMensagem('Não consegui carregar seu pedido agora. Tenta recarregar a página.');
+  }
+}
+
+function montarPagina(dados) {
+  document.getElementById('titulo-header').textContent = `Pedido de ${dados.cliente_nome}`;
+  document.title = `Pedido de ${dados.cliente_nome} — Baby Luz Confecção`;
+
+  if (!dados.produtos.length) {
+    document.getElementById('subtitulo-header').textContent = 'Nenhum pedido ativo no momento';
+    mostrarMensagem('Você não tem nenhum pedido ativo no momento 💕');
+    return;
+  }
+  document.getElementById('mensagem').hidden = true;
+
+  const t = dados.totais;
+  document.getElementById('subtitulo-header').textContent =
+    t.pedidos > 1 ? `Juntamos os seus ${t.pedidos} pedidos aqui` : 'Confira tudo o que você escolheu';
+
+  const resumo = document.getElementById('resumo');
+  const cards = [
+    [t.pecas, 'peças no total'],
+    [t.figuras, 'figuras'],
+    [t.catalogos, t.catalogos === 1 ? 'catálogo' : 'catálogos'],
+    [t.pedidos, t.pedidos === 1 ? 'pedido' : 'pedidos'],
+  ];
+  for (const [valor, rotulo] of cards) {
+    const c = el('div', 'resumo-card');
+    c.appendChild(el('div', 'resumo-valor', String(valor)));
+    c.appendChild(el('div', 'resumo-rotulo', rotulo));
+    resumo.appendChild(c);
+  }
+  resumo.hidden = false;
+
+  const porCatalogo = new Map();
+  for (const p of dados.produtos) {
+    const nome = p.catalogo_nome || 'Outros';
+    if (!porCatalogo.has(nome)) porCatalogo.set(nome, []);
+    porCatalogo.get(nome).push(p);
+  }
+
+  const grade = document.getElementById('grade');
+  grade.hidden = false;
+  let aberto = null;
+
+  for (const [nomeCatalogo, itens] of porCatalogo) {
+    const secao = el('div', 'secao-catalogo');
+    const botao = el('button', 'catalogo-botao');
+    botao.type = 'button';
+    const pecas = itens.reduce((s, i) => s + i.quantidade, 0);
+    const info = el('span', 'catalogo-botao-info');
+    info.appendChild(el('span', 'catalogo-botao-qtd', `${itens.length} figura(s) · ${pecas} peça(s)`));
+    info.appendChild(el('span', 'catalogo-botao-seta', '▾'));
+    botao.appendChild(el('span', 'catalogo-botao-nome', nomeCatalogo));
+    botao.appendChild(info);
+    secao.appendChild(botao);
+
+    const gradeDoCatalogo = el('div', 'grade-produtos');
+    gradeDoCatalogo.hidden = true;
+    secao.appendChild(gradeDoCatalogo);
+
+    // Tudo começa FECHADO -- a cliente clica no catálogo pra abrir. Sanfona
+    // igual ao catálogo do site: abrir um fecha o que estava aberto.
+    let montado = false;
+    botao.addEventListener('click', () => {
+      const estavaAberto = !gradeDoCatalogo.hidden;
+      if (aberto && aberto.grade !== gradeDoCatalogo) {
+        aberto.grade.hidden = true;
+        aberto.botao.classList.remove('aberto');
+      }
+      if (estavaAberto) {
+        gradeDoCatalogo.hidden = true;
+        botao.classList.remove('aberto');
+        aberto = null;
+        return;
+      }
+      if (!montado) {
+        montarCards(gradeDoCatalogo, itens);
+        montado = true;
+      }
+      gradeDoCatalogo.hidden = false;
+      botao.classList.add('aberto');
+      aberto = { botao, grade: gradeDoCatalogo };
+    });
+
+    grade.appendChild(secao);
+  }
+}
+
+function montarCards(container, itens) {
+  for (const produto of itens) {
+    const card = el('div', 'produto');
+    const img = document.createElement('img');
+    img.src = produto.imagem_url;
+    img.alt = produto.referencia;
+    img.loading = 'lazy';
+    img.addEventListener('click', () => abrirLightbox(produto));
+    card.appendChild(img);
+    card.appendChild(el('div', 'qtd', `${produto.quantidade}x`));
+    card.appendChild(el('div', 'ref', produto.referencia + (produto.nome ? ' · ' + produto.nome : '')));
+    if (produto.medida) card.appendChild(el('span', 'medida', produto.medida));
+    container.appendChild(card);
+  }
+}
+
+const lightboxOverlay = document.getElementById('lightbox-overlay');
+const lightboxImagem = document.getElementById('lightbox-imagem');
+
+function abrirLightbox(produto) {
+  lightboxImagem.src = produto.imagem_grande_url || produto.imagem_url;
+  lightboxImagem.alt = produto.referencia;
+  document.getElementById('lightbox-ref').textContent =
+    produto.referencia + (produto.nome ? ' · ' + produto.nome : '')
+    + (produto.medida ? ' · ' + produto.medida : '') + ` · ${produto.quantidade}x`;
+  lightboxOverlay.hidden = false;
+}
+
+function fecharLightbox() {
+  lightboxOverlay.hidden = true;
+  lightboxImagem.src = '';
+}
+
+document.getElementById('lightbox-fechar').addEventListener('click', fecharLightbox);
+lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) fecharLightbox(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightboxOverlay.hidden) fecharLightbox(); });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baby Luz Confecção — Painel do Representante</title>
+<meta name="description" content="Acesse com seu usuário e senha pra ver os pedidos que os clientes fizeram através de você.">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Open Graph / WhatsApp, Facebook, etc. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://babyluzconfeccao.com.br/painel.html">
+<meta property="og:title" content="Baby Luz Confecção — Painel do Representante">
+<meta property="og:description" content="Acesse com seu usuário e senha pra ver os pedidos que os clientes fizeram através de você.">
+<meta property="og:image" content="https://babyluzconfeccao.com.br/painel-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card (some apps fall back to this) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Baby Luz Confecção — Painel do Representante">
+<meta name="twitter:description" content="Acesse com seu usuário e senha pra ver os pedidos que os clientes fizeram através de você.">
+<meta name="twitter:image" content="https://babyluzconfeccao.com.br/painel-preview.jpg">
+<style>
+  :root {
+    --rosa: #ff8fab;
+    --rosa-escuro: #e0607f;
+    --azul: #8ecae6;
+    --fundo: #fff5f7;
+    --texto: #4a3540;
+    --card-bg: #ffffff;
+    --sombra: 0 4px 16px rgba(224, 96, 127, 0.15);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white;
+    padding: 28px 20px 22px;
+    text-align: center;
+    box-shadow: var(--sombra);
+    flex-shrink: 0;
+  }
+  header h1 { margin: 0; font-size: 1.5rem; }
+  header p { margin: 6px 0 0; opacity: .95; font-size: .9rem; }
+
+  main { max-width: 640px; width: 100%; margin: 0 auto; padding: 18px; }
+
+  /* Preenche o espaço entre o cabeçalho e o rodapé da tela e centraliza o
+     cartão de login nele, em vez do cartão ficar colado no topo com um
+     vazio grande sobrando embaixo em telas altas de celular. */
+  #login-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  #tela-login {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 32px 24px;
+    max-width: 340px;
+    width: 100%;
+    box-shadow: var(--sombra);
+    text-align: center;
+  }
+  #tela-login h2 { margin-top: 0; color: var(--rosa-escuro); }
+  #tela-login input {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border: 2px solid #ffd6e0;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
+  #tela-login input:focus { outline: none; border-color: var(--rosa); }
+  #login-erro { color: #c0392b; font-size: .85rem; min-height: 1.2em; }
+
+  .btn {
+    background: var(--rosa);
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background .15s;
+  }
+  .btn:hover { background: var(--rosa-escuro); }
+  .btn:disabled { background: #d9b8c2; cursor: not-allowed; }
+  .btn-secundario {
+    background: transparent;
+    color: #9a8790;
+    border: none;
+    padding: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  #barra-usuario {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card-bg); border-radius: 14px; padding: 14px 18px;
+    box-shadow: var(--sombra); margin-bottom: 16px;
+  }
+  #barra-usuario span { font-weight: 600; color: var(--rosa-escuro); }
+  #barra-usuario button {
+    background: transparent; border: none; color: #9a8790;
+    font-size: .85rem; cursor: pointer; text-decoration: underline;
+  }
+
+  .pedido-card {
+    background: var(--card-bg); border-radius: 16px; padding: 18px 20px;
+    box-shadow: var(--sombra); margin-bottom: 14px;
+  }
+  .pedido-card h3 { margin: 0 0 2px; color: var(--rosa-escuro); font-size: 1.05rem; }
+  .pedido-card .telefone { color: #7a6570; font-size: .85rem; margin-bottom: 10px; }
+  .pedido-item {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--fundo);
+    font-size: .88rem;
+  }
+  .pedido-item:last-child { border-bottom: none; }
+  .pedido-item-qtd { color: var(--rosa-escuro); font-weight: 700; white-space: nowrap; }
+  .pedido-data { color: #9a8790; font-size: .78rem; margin-top: 10px; }
+
+  #tela-vazio, #tela-carregando {
+    text-align: center; color: #9a8790; padding: 40px 20px;
+  }
+
+  /* Telas de celular -- formulário de login um pouco mais compacto, mais
+     próximo do topo (em vez de sobrar tanto espaço vazio acima como no
+     desktop), sempre com respiro lateral garantido pelo width acima. */
+  @media (max-width: 420px) {
+    #tela-login { padding: 26px 18px; border-radius: 18px; }
+    #tela-login h2 { font-size: 1.25rem; }
+    header { padding: 22px 16px 18px; }
+    header h1 { font-size: 1.3rem; }
+  }
+
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Baby Luz Confecção</h1>
+  <p>Painel do Representante</p>
+</header>
+
+<div id="login-wrapper">
+  <div id="tela-login">
+    <h2>Entrar</h2>
+    <input type="text" id="login-usuario" placeholder="Usuário" autocomplete="username">
+    <input type="password" id="login-senha" placeholder="Senha" autocomplete="current-password">
+    <div id="login-erro"></div>
+    <button class="btn" id="btn-entrar">Entrar</button>
+  </div>
+</div>
+
+<main id="tela-painel" hidden>
+  <div id="barra-usuario">
+    <span id="nome-representante"></span>
+    <button type="button" id="btn-sair">Sair</button>
+  </div>
+  <div id="tela-carregando">Carregando pedidos...</div>
+  <div id="tela-vazio" hidden>Nenhum pedido pendente por enquanto.</div>
+  <div id="lista-pedidos"></div>
+</main>
+
+<script>
+const API = '/api';
+
+const telaLogin = document.getElementById('login-wrapper');
+const telaPainel = document.getElementById('tela-painel');
+const inputUsuario = document.getElementById('login-usuario');
+const inputSenha = document.getElementById('login-senha');
+const loginErro = document.getElementById('login-erro');
+const btnEntrar = document.getElementById('btn-entrar');
+
+async function tentarLogin() {
+  const usuario = inputUsuario.value.trim();
+  const senha = inputSenha.value;
+  if (!usuario || !senha) {
+    loginErro.textContent = 'Preenche usuário e senha.';
+    return;
+  }
+  btnEntrar.disabled = true;
+  loginErro.textContent = '';
+  try {
+    const resp = await fetch(`${API}/representante_login.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ usuario, senha }),
+    });
+    const data = await resp.json();
+    if (!resp.ok || !data.ok) {
+      loginErro.textContent = data.erro || 'Não foi possível entrar.';
+      btnEntrar.disabled = false;
+      return;
+    }
+    mostrarPainel(data.nome);
+  } catch (e) {
+    loginErro.textContent = 'Erro de conexão. Tenta de novo.';
+    btnEntrar.disabled = false;
+  }
+}
+
+btnEntrar.addEventListener('click', tentarLogin);
+inputSenha.addEventListener('keydown', (e) => { if (e.key === 'Enter') tentarLogin(); });
+inputUsuario.addEventListener('keydown', (e) => { if (e.key === 'Enter') tentarLogin(); });
+
+document.getElementById('btn-sair').addEventListener('click', async () => {
+  await fetch(`${API}/representante_logout.php`, { method: 'POST', credentials: 'same-origin' });
+  location.reload();
+});
+
+function mostrarPainel(nome) {
+  telaLogin.hidden = true;
+  telaPainel.hidden = false;
+  document.getElementById('nome-representante').textContent = nome;
+  carregarPedidos();
+}
+
+async function carregarPedidos() {
+  const carregando = document.getElementById('tela-carregando');
+  const vazio = document.getElementById('tela-vazio');
+  const lista = document.getElementById('lista-pedidos');
+  carregando.style.display = 'block';
+  vazio.hidden = true;
+  lista.innerHTML = '';
+
+  try {
+    const resp = await fetch(`${API}/meus_pedidos_representante.php?status=pendente`, {
+      credentials: 'same-origin', cache: 'no-store',
+    });
+    if (resp.status === 401) {
+      // Sessão expirou ou nunca existiu -- volta pro login.
+      telaPainel.hidden = true;
+      telaLogin.hidden = false;
+      btnEntrar.disabled = false;
+      return;
+    }
+    const data = await resp.json();
+    carregando.style.display = 'none';
+    if (!data.ok) throw new Error(data.erro || 'erro desconhecido');
+
+    if (data.pedidos.length === 0) {
+      vazio.hidden = false;
+      return;
+    }
+    for (const pedido of data.pedidos) {
+      lista.appendChild(construirCardPedido(pedido));
+    }
+  } catch (e) {
+    carregando.textContent = 'Não consegui carregar seus pedidos agora. Recarrega a página.';
+  }
+}
+
+function construirCardPedido(pedido) {
+  const card = document.createElement('div');
+  card.className = 'pedido-card';
+  const itensHtml = pedido.itens.map((item) => {
+    const nome = item.referencia + (item.nome ? ' · ' + item.nome : '')
+      + (item.medida ? ' · ' + item.medida : '');
+    return `<div class="pedido-item"><span>${nome}</span>`
+      + `<span class="pedido-item-qtd">${item.quantidade}x</span></div>`;
+  }).join('');
+  card.innerHTML = `
+    <h3>${pedido.nome}</h3>
+    <div class="telefone">${pedido.telefone}</div>
+    ${itensHtml}
+    <div class="pedido-data">Pedido #${pedido.pedido_id} · ${pedido.criado_em}</div>
+  `;
+  return card;
+}
+
+// Se já tiver uma sessão válida (cookie ainda ativo), pula direto pro
+// painel em vez de mostrar o login de novo.
+(async () => {
+  try {
+    const resp = await fetch(`${API}/meus_pedidos_representante.php?status=pendente`, {
+      credentials: 'same-origin', cache: 'no-store',
+    });
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data.ok) mostrarPainel(data.nome);
+    }
+  } catch (e) {
+    // sem sessão -- fica na tela de login mesmo, comportamento normal.
+  }
+})();
+</script>
+
+</body>
+</html>

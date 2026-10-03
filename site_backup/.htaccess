@@ -1,0 +1,17 @@
+DirectoryIndex index.html index.php
+
+RewriteEngine On
+
+# Não deixa ninguém baixar o config.local.php direto pela internet
+<FilesMatch "config\.local\.php$">
+    Require all denied
+</FilesMatch>
+
+# A página principal é editada com frequência (preço, layout, o próprio
+# carrinho) -- sem isso ela ficava sujeita ao cache padrão do CDN/navegador
+# (mesmo problema já resolvido em catalogo.php via header PHP; index.html é
+# servido como arquivo estático, então a regra tem que vir de aqui).
+<FilesMatch "^index\.html$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+</FilesMatch>

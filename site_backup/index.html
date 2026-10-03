@@ -1,0 +1,1953 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baby Luz Confecção — Catálogo</title>
+
+<meta name="description" content="Escolha os desenhos que você quer no seu pedido.">
+
+<!-- Open Graph / WhatsApp, Facebook, etc. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://babyluzconfeccao.com.br/">
+<meta property="og:title" content="Baby Luz Confecção — Catálogo">
+<meta property="og:description" content="Escolha os desenhos que você quer no seu pedido.">
+<meta property="og:image" content="https://babyluzconfeccao.com.br/catalogo-preview-2026-09-15.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="401">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card (some apps fall back to this) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Baby Luz Confecção — Catálogo">
+<meta name="twitter:description" content="Escolha os desenhos que você quer no seu pedido.">
+<meta name="twitter:image" content="https://babyluzconfeccao.com.br/catalogo-preview-2026-09-15.jpg">
+<style>
+  :root {
+    --rosa: #ff8fab;
+    --rosa-escuro: #e0607f;
+    --azul: #8ecae6;
+    --fundo: #fff5f7;
+    --texto: #4a3540;
+    --card-bg: #ffffff;
+    --sombra: 0 4px 16px rgba(224, 96, 127, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    padding-bottom: 90px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white;
+    padding: 28px 20px 22px;
+    text-align: center;
+    box-shadow: var(--sombra);
+  }
+  header h1 { margin: 0; font-size: 1.5rem; }
+  header p { margin: 6px 0 0; opacity: .95; font-size: .9rem; }
+
+  #overlay, #overlay-revisao {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, 0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  #modal {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: var(--sombra);
+    text-align: center;
+  }
+  #modal h2 { margin-top: 0; color: var(--rosa-escuro); }
+  #modal p, #modal-revisao p { font-size: .9rem; color: #7a6570; }
+  #modal input, #modal-revisao input {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border: 2px solid #ffd6e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--texto);
+    background: white;
+    box-sizing: border-box;
+  }
+  #modal input:focus, #modal-revisao input:focus { outline: none; border-color: var(--rosa); }
+  .rep-wrap { position: relative; margin: 8px 0; text-align: left; }
+  .rep-trigger {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; border: 2px solid #ffd6e0; border-radius: 12px;
+    font-size: 1rem; font-family: inherit; color: #b08090;
+    background: white; cursor: pointer; user-select: none;
+    transition: border-color .15s, border-radius .15s;
+  }
+  .rep-trigger.filled { color: var(--texto); }
+  .rep-wrap.open .rep-trigger { border-color: var(--rosa); border-radius: 12px 12px 0 0; }
+  .rep-arrow { width: 18px; height: 18px; flex-shrink: 0; color: var(--rosa); transition: transform .2s; }
+  .rep-wrap.open .rep-arrow { transform: rotate(180deg); }
+  .rep-dropdown {
+    display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 200;
+    background: white; border: 2px solid var(--rosa); border-top: none;
+    border-radius: 0 0 12px 12px; max-height: 220px; overflow-y: auto;
+    box-shadow: 0 10px 28px rgba(255,100,140,.15);
+  }
+  .rep-wrap.open .rep-dropdown { display: block; }
+  .rep-opt {
+    padding: 10px 14px; cursor: pointer; border-bottom: 1px solid #ffeef3;
+    transition: background .1s;
+  }
+  .rep-opt:last-child { border-bottom: none; }
+  .rep-opt:hover, .rep-opt.active { background: #fff0f5; }
+  .rep-opt__nome { font-weight: 600; color: var(--rosa-escuro); font-size: .93rem; }
+  .rep-opt__regiao { font-size: .78rem; color: #a07888; margin-top: 2px; }
+  .btn {
+    background: var(--rosa);
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background .15s;
+  }
+  .btn:hover { background: var(--rosa-escuro); }
+  .btn:disabled { background: #d9b8c2; cursor: not-allowed; }
+  .btn-secundario {
+    background: transparent;
+    color: #9a8790;
+    border: none;
+    padding: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  #modal-erro { color: #c0392b; font-size: .85rem; min-height: 1.2em; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 18px; }
+  .secao-catalogo { margin-bottom: 14px; }
+  .catalogo-botao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--rosa-escuro);
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: transform .12s;
+    text-align: left;
+  }
+  .catalogo-botao:hover { transform: translateY(-2px); }
+  .catalogo-botao-nome { flex: 1; min-width: 0; }
+  .catalogo-botao-info { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .catalogo-botao-seta { color: var(--rosa); font-size: 1.1rem; transition: transform .2s; }
+  .catalogo-botao.aberto .catalogo-botao-seta { transform: rotate(180deg); }
+  /* Dentro de um catálogo: o botão dele fica marcado (rosa) e FIXO no topo enquanto se
+     rola pelas figuras, pra sempre dar pra ver em qual catálogo se está. */
+  .catalogo-botao.aberto {
+    background: var(--rosa); color: white;
+    position: sticky; top: 0; z-index: 30;
+  }
+  .catalogo-botao.aberto .catalogo-botao-seta { color: white; }
+  #grade { display: flex; flex-direction: column; gap: 0; }
+  .grade-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .produto {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 3px solid transparent;
+    transition: border-color .12s;
+    position: relative;
+  }
+  .produto.selecionado { border-color: var(--rosa); }
+  .produto img { width: 100%; height: 130px; object-fit: contain; background: white; display: block; cursor: zoom-in; }
+  .produto .ref {
+    font-size: .72rem;
+    color: #9a8790;
+    text-align: center;
+    padding: 6px 4px 2px;
+  }
+
+  /* Zoom da figura -- clica na miniatura pequena do card e ela abre grande,
+     centralizada, por cima de tudo; fecha clicando fora ou no X. */
+  #lightbox-overlay {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, 0.78);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200;
+    padding: 24px;
+  }
+  #lightbox-overlay[hidden] { display: none; }
+  #lightbox-conteudo {
+    position: relative;
+    max-width: min(92vw, 640px);
+    max-height: 88vh;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #lightbox-conteudo img {
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  #lightbox-conteudo .ref {
+    margin-top: 10px;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--rosa-escuro);
+    text-align: center;
+  }
+  #lightbox-fechar {
+    position: absolute;
+    top: -14px; right: -14px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--rosa);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+  }
+  #lightbox-fechar:hover { background: var(--rosa-escuro); }
+
+  /* Quantity stepper -- sits below each figure's picture; "+" alone until
+     at least 1 is picked, then the full −/quantidade/+ row (see the
+     "adicionar"-vs-"escolhido" classes toggled in JS). Buttons are 36px+
+     tall/wide -- comfortably tappable on a phone, the device most
+     customers actually use this catalog from. */
+  .qtd-linha { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 4px 6px 10px; }
+  .qtd-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--fundo);
+    color: var(--rosa-escuro);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qtd-btn:active { background: #ffe0e9; }
+  .qtd-valor { min-width: 22px; text-align: center; font-weight: 700; color: var(--texto); }
+  .qtd-adicionar {
+    /* appearance: none -- a <button>'s native OS theming was overriding
+       the block width below in at least one real browser (screenshot
+       showed it shrink-to-fit and left-aligned despite display:block);
+       an explicit width, not just "let block layout fill the parent", is
+       what actually forces it full-width+centered everywhere. */
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: calc(100% - 12px);
+    text-align: center;
+    border: none;
+    background: var(--rosa);
+    color: white;
+    font-weight: 600;
+    font-size: .85rem;
+    padding: 8px 6px;
+    margin: 4px 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .qtd-adicionar:active { background: var(--rosa-escuro); }
+
+  /* Seletor de medida -- some se o produto não tiver medidas cadastradas
+     (ver produto.medidas, vindo de catalogo.php). Um botão por opção,
+     igual em espírito ao seletor de quantidade logo abaixo; a opção
+     escolhida fica destacada com o rosa da marca. */
+  .medida-linha {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
+    padding: 0 6px 6px;
+  }
+  .medida-btn {
+    border: 2px solid #ffd6e0;
+    background: white;
+    color: var(--rosa-escuro);
+    font-size: .74rem;
+    font-weight: 600;
+    padding: 4px 9px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .medida-btn.selecionada { background: var(--rosa); border-color: var(--rosa); color: white; }
+  /* Medidas dentro do card ficam compactas: as faixas têm 10 opções e, sem isso, viravam uma fila enorme. */
+  .produto .medida-btn { font-size: .68rem; padding: 4px 7px; }
+  .produto .medida-linha { gap: 5px; }
+
+  #barra-finalizar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white;
+    box-shadow: 0 -4px 16px rgba(0,0,0,.1);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 12px;
+    z-index: 50;
+  }
+  #contagem { flex: 1; font-size: .9rem; color: #7a6570; }
+  #barra-finalizar .btn { width: auto; padding: 12px 26px; margin: 0; }
+
+  #tela-sucesso, #tela-carregando {
+    text-align: center; padding: 60px 20px; display: none;
+  }
+  .sucesso-card {
+    background: var(--card-bg);
+    max-width: 380px; margin: 0 auto;
+    border-radius: 24px;
+    padding: 40px 28px;
+    box-shadow: var(--sombra);
+    animation: apareceSuave .4s ease;
+  }
+  .sucesso-icone {
+    width: 84px; height: 84px; margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white; font-size: 2.4rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    animation: popCheck .45s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 10px 24px rgba(224, 96, 127, .35);
+  }
+  .sucesso-card h2 { color: var(--rosa-escuro); margin: 0 0 10px; font-size: 1.4rem; }
+  .sucesso-resumo {
+    display: inline-block;
+    font-weight: 600; color: var(--rosa-escuro);
+    background: var(--fundo);
+    border-radius: 999px;
+    padding: 6px 16px;
+    margin: 0 0 16px;
+    font-size: .88rem;
+  }
+  .sucesso-detalhe { color: #7a6570; font-size: .9rem; margin: 0; line-height: 1.55; }
+
+  /* Popup de processamento -- mostrado ao clicar em "Finalizar", cobre a
+     tela enquanto o pedido é enviado. Os passos avançam num ritmo próprio
+     (ver marcarPassos no JS) e só entrega o resultado real depois que o
+     fetch de verdade também terminou -- rápida ou lenta, a pessoa sempre vê
+     a sequência completa em vez de um "Enviando..." piscando. */
+  #overlay-processando {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, .6);
+    backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+  }
+  #modal-processando {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 36px 28px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(224, 96, 127, .35);
+    animation: apareceSuave .35s ease;
+  }
+  @keyframes apareceSuave {
+    from { opacity: 0; transform: scale(.92) translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .spinner-anel {
+    width: 60px; height: 60px; margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 5px solid #ffe0e9;
+    border-top-color: var(--rosa);
+    animation: girar .85s linear infinite;
+  }
+  @keyframes girar { to { transform: rotate(360deg); } }
+  #modal-processando h2 { margin: 0 0 18px; color: var(--rosa-escuro); font-size: 1.1rem; }
+  #passos-processando {
+    list-style: none; margin: 0; padding: 0; text-align: left;
+    display: flex; flex-direction: column; gap: 13px;
+  }
+  #passos-processando li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .88rem; color: #c9b6bf;
+    transition: color .3s;
+  }
+  #passos-processando li.feito { color: var(--texto); font-weight: 500; }
+  .passo-check {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid #ffd6e0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .72rem; color: transparent;
+    transition: background .25s, border-color .25s;
+  }
+  #passos-processando li.feito .passo-check {
+    background: var(--rosa); border-color: var(--rosa); color: white;
+    animation: marcarCheck .32s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes marcarCheck { from { transform: scale(0); } to { transform: scale(1); } }
+  .check-final {
+    width: 72px; height: 72px; margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white; font-size: 2rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    animation: popCheck .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes popCheck { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* Tela de revisão do pedido -- mostrada ao clicar em "Finalizar", antes
+     do modal de nome/telefone, pra dar pra conferir o que foi escolhido
+     antes de informar os dados. */
+  #modal-revisao {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--sombra);
+    text-align: center;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Edge legado */
+  }
+  #modal-revisao::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+  #modal-revisao h2 { margin-top: 0; color: var(--rosa-escuro); }
+  .revisao-item {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--fundo);
+    font-size: .88rem; text-align: left;
+  }
+  .revisao-item:last-child { border-bottom: none; }
+  .revisao-item-nome { color: var(--texto); }
+  .revisao-item-qtd { color: var(--rosa-escuro); font-weight: 700; white-space: nowrap; }
+  #total-revisao {
+    text-align: center; font-weight: 700; color: var(--rosa-escuro);
+    margin: 14px 0 4px; font-size: .95rem;
+  }
+
+
+  /* ---- Tipo + medida + quantidade certa (catálogo classificado como aplique/faixa) ---- */
+  .tipo-linha { display: flex; flex-direction: column; gap: 6px; padding: 2px 8px 6px; }
+  .tipo-btn {
+    appearance: none; -webkit-appearance: none;
+    border: 2px solid #ffd6e0; background: white; color: var(--rosa-escuro);
+    font-family: inherit; font-weight: 600; font-size: .78rem;
+    padding: 7px 8px; border-radius: 10px; cursor: pointer;
+  }
+  .tipo-btn.selecionada { background: var(--rosa); border-color: var(--rosa); color: white; }
+  .tipo-fixo {
+    text-align: center; font-size: .72rem; font-weight: 600; color: var(--rosa-escuro);
+    background: var(--fundo); border-radius: 999px; margin: 2px 8px 6px; padding: 5px 8px;
+  }
+  .dica { text-align: center; font-size: .72rem; color: #b59aa5; padding: 0 8px 6px; }
+  .qtd-adicionar:disabled { background: #e6cfd6; color: #fff; cursor: not-allowed; }
+  .qtd-adicionar.adicionado { background: #3aa76d; }
+  .no-carrinho {
+    text-align: center; font-size: .72rem; font-weight: 700; color: var(--rosa-escuro);
+    padding: 0 6px 8px;
+  }
+  #barra-finalizar .btn-claro { background: var(--fundo); color: var(--rosa-escuro); }
+  #barra-finalizar .btn-claro:hover { background: #ffe0e9; }
+
+
+  /* Botões de escolha do card (Tipo / Medida) -- cada um abre um popup com as opções */
+  .seletor-btn {
+    appearance: none; -webkit-appearance: none;
+    display: flex; align-items: center; justify-content: center;
+    width: calc(100% - 16px); margin: 0 8px 8px;
+    border: 2px solid #ffd6e0; background: white; color: var(--rosa-escuro);
+    font-family: inherit; font-weight: 600; font-size: .78rem; text-align: center;
+    padding: 9px 10px; border-radius: 12px; cursor: pointer;
+  }
+  .seletor-btn.escolhido { border-color: var(--rosa); background: var(--fundo); }
+  .msg-add { text-align: center; font-size: .74rem; font-weight: 700; color: #2f9d62; padding: 0 6px 8px; }
+
+  /* Popup de escolha (tipo / medida) */
+  #overlay-escolha {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(74, 53, 64, 0.55);
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  #modal-escolha {
+    background: var(--card-bg); border-radius: 20px; padding: 22px 20px 12px;
+    width: 100%; max-width: 340px; max-height: 84vh; overflow-y: auto;
+    box-shadow: var(--sombra); text-align: center;
+  }
+  #modal-escolha h3 { margin: 0 0 4px; color: var(--rosa-escuro); font-size: 1.1rem; }
+  #escolha-sub { font-size: .8rem; color: #9a8790; margin-bottom: 12px; overflow-wrap: anywhere; }
+  .escolha-opcao {
+    appearance: none; -webkit-appearance: none;
+    display: block; width: 100%; margin: 0 0 8px;
+    border: 2px solid #ffd6e0; background: white; color: var(--texto);
+    font-family: inherit; font-weight: 600; font-size: .98rem;
+    padding: 13px 12px; border-radius: 12px; cursor: pointer;
+  }
+  .escolha-opcao:active { background: #ffe0e9; }
+  .escolha-opcao.atual { background: var(--rosa); border-color: var(--rosa); color: white; }
+
+  /* Carrinho */
+  .carrinho-vazio { color: #9a8790; font-size: .9rem; padding: 18px 0; }
+  .linha-carrinho {
+    display: grid; grid-template-columns: 48px 1fr auto auto; align-items: center; gap: 10px;
+    padding: 9px 0; border-bottom: 1px solid var(--fundo); text-align: left;
+  }
+  .linha-carrinho:last-child { border-bottom: none; }
+  .linha-carrinho img { width: 48px; height: 48px; object-fit: contain; background: white; border-radius: 8px; }
+  .linha-carrinho .lc-ref { font-size: .82rem; font-weight: 700; color: var(--texto); overflow-wrap: anywhere; }
+  .linha-carrinho .lc-detalhe { font-size: .74rem; color: #9a8790; margin-top: 2px; overflow-wrap: anywhere; }
+  .lc-qtd { display: flex; align-items: center; gap: 6px; }
+  .lc-qtd .qtd-btn { width: 28px; height: 28px; font-size: 1rem; }
+  .lc-qtd .qtd-btn:disabled { opacity: .35; cursor: not-allowed; }
+  .lc-qtd .qtd-valor { min-width: 26px; font-size: .9rem; }
+  .lc-remover {
+    appearance: none; border: none; background: transparent; cursor: pointer;
+    font-size: 1.05rem; color: #c0392b; padding: 4px;
+  }
+
+  [hidden] { display: none !important; }
+
+  /* ===================== CHAT MARIA ===================== */
+  /* TEMPORARIAMENTE OCULTO */
+  #chat-fab, #chat-panel { display: none !important; }
+
+  #chat-fab {
+    position: fixed; bottom: 82px; right: 16px; z-index: 9998;
+    display: flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #e91e8c 0%, #ad1457 100%);
+    color: #fff; border: none; border-radius: 50px;
+    padding: 11px 20px 11px 11px; cursor: pointer;
+    box-shadow: 0 4px 22px rgba(233,30,140,.45);
+    transition: transform .2s, box-shadow .2s; font-family: inherit;
+  }
+  #chat-fab:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(233,30,140,.55); }
+  @keyframes chFabPulse {
+    0%   { transform: scale(1);    box-shadow: 0 4px 22px rgba(233,30,140,.45); }
+    40%  { transform: scale(1.12); box-shadow: 0 6px 32px rgba(233,30,140,.75); }
+    100% { transform: scale(1);    box-shadow: 0 4px 22px rgba(233,30,140,.45); }
+  }
+  #chat-fab.ch-pulse { animation: chFabPulse .65s ease-in-out; }
+  .cfab-av {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,.22); border: 2px solid rgba(255,255,255,.4);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 17px;
+  }
+  .cfab-lbl { font-weight: 700; font-size: 15px; letter-spacing: .3px; }
+  .cfab-dot {
+    position: absolute; top: 10px; right: 10px;
+    width: 9px; height: 9px; background: #4caf50;
+    border-radius: 50%; border: 2px solid #ad1457;
+    animation: cfabPulse 2s infinite;
+  }
+  @keyframes cfabPulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.3)} }
+
+  /* Panel */
+  #chat-panel {
+    position: fixed; bottom: 148px; right: 16px; z-index: 9999;
+    width: 360px; max-height: 580px;
+    background: #fff; border-radius: 22px;
+    box-shadow: 0 10px 50px rgba(0,0,0,.18);
+    display: flex; flex-direction: column; overflow: hidden;
+    transform: scale(.88) translateY(16px);
+    transform-origin: bottom right;
+    opacity: 0; pointer-events: none;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .22s;
+  }
+  #chat-panel.copen {
+    transform: scale(1) translateY(0); opacity: 1; pointer-events: all;
+  }
+
+  /* Header */
+  .ch-head {
+    background: linear-gradient(135deg, #e91e8c 0%, #ad1457 100%);
+    padding: 15px 16px; display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+  }
+  .ch-av-wrap { position: relative; flex-shrink: 0; }
+  .ch-av {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,.22); border: 2.5px solid rgba(255,255,255,.45);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 19px; color: #fff;
+  }
+  .ch-av-sm { width: 30px; height: 30px; font-size: 13px; flex-shrink: 0; }
+  .ch-online {
+    position: absolute; bottom: 1px; right: 1px;
+    width: 11px; height: 11px; background: #4caf50;
+    border-radius: 50%; border: 2.5px solid #ad1457;
+  }
+  .ch-name { color: #fff; font-weight: 700; font-size: 16px; }
+  .ch-sub  { color: rgba(255,255,255,.82); font-size: 12px; margin-top: 1px; }
+  .ch-close {
+    margin-left: auto; background: rgba(255,255,255,.2); border: none;
+    color: #fff; width: 30px; height: 30px; border-radius: 50%;
+    cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+  }
+  .ch-close:hover { background: rgba(255,255,255,.38); }
+
+  /* Messages */
+  #ch-msgs {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    background: #fdf5f9;
+    scroll-behavior: smooth;
+  }
+  #ch-msgs::-webkit-scrollbar { width: 4px; }
+  #ch-msgs::-webkit-scrollbar-thumb { background: #f0c0d8; border-radius: 2px; }
+
+  .ch-row { display: flex; gap: 8px; align-items: flex-end; }
+  .ch-row.cu  { flex-direction: row-reverse; }
+
+  .ch-bubble {
+    max-width: 245px; padding: 10px 14px; border-radius: 18px;
+    font-size: 14px; line-height: 1.55; word-break: break-word;
+  }
+  .ch-row.cm .ch-bubble {
+    background: #fff; color: #333;
+    border: 1.5px solid #f0c0d8; border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 4px rgba(233,30,140,.07);
+  }
+  .ch-row.cu .ch-bubble {
+    background: linear-gradient(135deg, #e91e8c 0%, #ad1457 100%);
+    color: #fff; border-bottom-right-radius: 4px;
+  }
+  .ch-time { font-size: 10px; color: #bbb; margin-top: 3px; text-align: right; }
+  .ch-row.cm .ch-time { text-align: left; }
+
+  /* Typing */
+  #ch-typing {
+    padding: 0 16px 10px; display: flex;
+    align-items: center; gap: 8px; flex-shrink: 0;
+    background: #fdf5f9;
+  }
+  .ch-dots {
+    background: #fff; border: 1.5px solid #f0c0d8;
+    border-radius: 18px; padding: 10px 14px;
+    display: flex; gap: 5px; align-items: center;
+  }
+  .ch-dots span {
+    width: 7px; height: 7px; background: #e91e8c;
+    border-radius: 50%; animation: chDot 1.3s infinite;
+  }
+  .ch-dots span:nth-child(2) { animation-delay: .2s; }
+  .ch-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes chDot { 0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-7px)} }
+
+  /* Input */
+  .ch-inp-wrap {
+    display: flex; gap: 8px; padding: 12px 14px;
+    border-top: 1.5px solid #f0e0ec; background: #fff; flex-shrink: 0;
+  }
+  #ch-inp {
+    flex: 1; border: 1.5px solid #f0c0d8; border-radius: 24px;
+    padding: 10px 16px; font-size: 14px; outline: none;
+    font-family: inherit; background: #fdf5f9;
+    transition: border-color .15s, background .15s;
+  }
+  #ch-inp:focus { border-color: #e91e8c; background: #fff; }
+  #ch-send {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: linear-gradient(135deg, #e91e8c 0%, #ad1457 100%);
+    border: none; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s, box-shadow .15s;
+  }
+  #ch-send:hover { transform: scale(1.1); box-shadow: 0 3px 12px rgba(233,30,140,.4); }
+  #ch-send:disabled { opacity: .5; transform: none; }
+  #ch-send svg { width: 18px; height: 18px; fill: #fff; }
+
+  /* Order card */
+  .ch-order {
+    background: linear-gradient(135deg,#fff5fb,#ffe6f4);
+    border: 1.5px solid #f0c0d8; border-radius: 14px;
+    padding: 13px 14px; margin-top: 6px; max-width: 260px;
+  }
+  .ch-order-ttl { font-weight: 700; color: #ad1457; font-size: 13px; margin-bottom: 7px; }
+  .ch-order-txt {
+    font-size: 12px; color: #555; line-height: 1.65;
+    white-space: pre-line; max-height: 130px; overflow-y: auto;
+  }
+  .ch-copy-btn {
+    margin-top: 10px; width: 100%;
+    background: linear-gradient(135deg,#e91e8c,#ad1457);
+    color: #fff; border: none; border-radius: 20px;
+    padding: 8px 16px; font-size: 13px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: opacity .15s;
+  }
+  .ch-copy-btn:hover { opacity: .88; }
+
+  /* Barra de carrinho ao vivo */
+  #ch-cart-bar {
+    padding: 10px 14px 6px; border-top: 1.5px solid #f0e0ec;
+    background: linear-gradient(135deg,#fff5fb,#ffe6f4); flex-shrink: 0;
+  }
+  #ch-cart-bar-inner { font-size: 12px; color: #555; line-height: 1.6; }
+  #ch-cart-bar-inner strong { color: #ad1457; }
+  #ch-cart-btn {
+    margin-top: 7px; width: 100%;
+    background: linear-gradient(135deg,#e91e8c,#ad1457);
+    color: #fff; border: none; border-radius: 20px;
+    padding: 8px 16px; font-size: 13px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: opacity .15s;
+  }
+  #ch-cart-btn:hover { opacity: .88; }
+
+  /* Catalog cards no chat */
+  .cat-grid {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 4px 2px 8px; max-width: 280px;
+    scroll-snap-type: x mandatory;
+  }
+  .cat-grid::-webkit-scrollbar { height: 3px; }
+  .cat-grid::-webkit-scrollbar-thumb { background: #f0c0d8; border-radius: 2px; }
+  .cat-card {
+    flex-shrink: 0; width: 88px; background: #fff;
+    border: 1.5px solid #f0c0d8; border-radius: 12px;
+    overflow: hidden; cursor: pointer; text-align: center;
+    scroll-snap-align: start; transition: border-color .15s, transform .15s, box-shadow .15s;
+  }
+  .cat-card:hover { border-color: #e91e8c; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(233,30,140,.18); }
+  .cat-card img { width: 100%; height: 68px; object-fit: cover; display: block; }
+  .cat-no-img { width: 100%; height: 68px; display: flex; align-items: center; justify-content: center; font-size: 26px; background: #fdf5f9; }
+  .cat-card span { display: block; font-size: 10px; font-weight: 700; color: #ad1457; padding: 5px 4px; line-height: 1.3; }
+
+  @media (max-width: 420px) {
+    #chat-panel { width: calc(100vw - 20px); right: 10px; bottom: 148px; }
+    #chat-fab   { right: 10px; bottom: 82px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="titulo-header">Baby Luz Confecção</h1>
+  <p id="subtitulo-header">Escolha os desenhos que você quer no seu pedido</p>
+</header>
+
+<div id="overlay-revisao" hidden>
+  <div id="modal-revisao">
+    <h2>Seu carrinho 🛒</h2>
+    <div id="lista-revisao"></div>
+    <div id="total-revisao"></div>
+    <button class="btn" id="btn-continuar-revisao">Finalizar pedido</button>
+    <button class="btn-secundario" id="btn-voltar-revisao">Continuar escolhendo</button>
+  </div>
+</div>
+
+<div id="overlay" hidden>
+  <div id="modal">
+    <h2>Só mais um passo! 💕</h2>
+    <p>Para finalizar seu pedido, informe:</p>
+    <input type="text" id="input-nome" placeholder="Nome do cliente" maxlength="255">
+    <input type="tel" id="input-telefone" placeholder="Seu telefone (com DDD)" maxlength="32">
+    <div class="rep-wrap" id="rep-wrap">
+      <div class="rep-trigger" id="rep-trigger">
+        <span id="rep-label">Selecione o representante</span>
+        <svg class="rep-arrow" viewBox="0 0 20 20" fill="none"><path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="rep-dropdown" id="rep-dropdown"></div>
+    </div>
+    <input type="hidden" id="input-representante" value="">
+    <div id="modal-erro"></div>
+    <button class="btn" id="btn-confirmar-pedido">Enviar pedido</button>
+    <button class="btn-secundario" id="btn-cancelar-pedido">Voltar aos desenhos</button>
+  </div>
+</div>
+
+<main>
+  <div id="tela-carregando">Carregando catálogo...</div>
+  <div id="grade" hidden></div>
+  <div id="tela-sucesso">
+    <div class="sucesso-card">
+      <div class="sucesso-icone">✓</div>
+      <h2>Pedido enviado! 🎉</h2>
+      <div class="sucesso-resumo" id="sucesso-resumo"></div>
+      <p class="sucesso-detalhe">
+        Recebemos sua escolha certinho. Em breve entraremos em contato pelo
+        telefone que você informou 💕
+      </p>
+      <button class="btn" id="btn-novo-pedido" style="margin-top:20px;">Fazer novo pedido</button>
+    </div>
+  </div>
+</main>
+
+<div id="overlay-escolha" hidden>
+  <div id="modal-escolha">
+    <h3 id="escolha-titulo"></h3>
+    <div id="escolha-sub"></div>
+    <div id="escolha-lista"></div>
+    <button class="btn-secundario" id="escolha-cancelar" type="button">Cancelar</button>
+  </div>
+</div>
+
+<div id="lightbox-overlay" hidden>
+  <div id="lightbox-conteudo">
+    <button type="button" id="lightbox-fechar" aria-label="Fechar">✕</button>
+    <img id="lightbox-imagem" src="" alt="">
+    <div class="ref" id="lightbox-ref"></div>
+  </div>
+</div>
+
+<div id="barra-finalizar" hidden>
+  <div id="contagem">0 peça(s) no carrinho</div>
+  <button class="btn btn-claro" id="btn-carrinho">🛒 Carrinho</button>
+  <button class="btn" id="btn-finalizar">Finalizar</button>
+</div>
+
+<div id="overlay-processando" hidden>
+  <div id="modal-processando">
+    <div class="spinner-anel"></div>
+    <h2>Enviando seu pedido...</h2>
+    <ul id="passos-processando">
+      <li><span class="passo-check">✓</span> Confirmando seus desenhos</li>
+      <li><span class="passo-check">✓</span> Registrando seu pedido</li>
+      <li><span class="passo-check">✓</span> Quase pronto!</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const API = '/api';
+
+// Carrinho: cada LINHA = figura + tipo + medida. A mesma figura pode entrar em
+// mais de uma linha (termo colante e adesivo, ou duas medidas). Chave:
+// catalogo|||REF|||tipo|||medida. Cada linha guarda o produto (imagem/nome), o
+// tipo ('termo_colante' | 'adesivo' | null), a medida ({id, rotulo, qtd, ...}
+// ou null), a quantidade e o "passo": a quantidade anda sempre em MÚLTIPLOS
+// da quantidade inicial daquela medida (ver regras_medidas.json).
+const carrinho = new Map();
+const refreshers = []; // atualizam o selo "No carrinho" e o estado de cada card
+
+// Catálogo ainda sem categoria (o programa não classificou como aplique/faixa)
+// continua no modo antigo: entra com 7 e anda de 7 em 7.
+const QUANTIDADE_LEGADO = 7;
+
+let REGRAS = null; // regras_medidas.json: tipos, medidas e quantidade de cada uma
+
+function chaveLinha(produto, tipo, medidaId) {
+  return `${produto.catalogo_nome}|||${produto.referencia}|||${tipo || ''}|||${medidaId || ''}`;
+}
+
+function el(tag, className, texto) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  if (texto !== undefined) e.textContent = texto;
+  return e;
+}
+
+async function carregarRegras() {
+  try {
+    const resp = await fetch(`${API}/regras_medidas.php?_=${Date.now()}`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('regras indisponíveis');
+    REGRAS = await resp.json();
+  } catch (e) {
+    REGRAS = null; // sem regras: todos os catálogos caem no modo antigo
+  }
+}
+
+function rotuloTipo(tipo) {
+  return (REGRAS && REGRAS.tipos && REGRAS.tipos[tipo]) || tipo || '';
+}
+
+// Cards com botão de Tipo/Medida mostram SÓ a referência: o "MED 89X90MM" original da
+// figura confundia com a medida que a cliente escolhe. Catálogo sem categoria (modo
+// antigo) continua mostrando REF · MED como sempre.
+function rotuloProduto(produto) {
+  const classificado = REGRAS && REGRAS.categorias && REGRAS.categorias[produto.categoria];
+  return produto.referencia + (!classificado && produto.nome ? ' · ' + produto.nome : '');
+}
+
+function textoLinha(linha) {
+  const partes = [];
+  if (linha.tipo) partes.push(rotuloTipo(linha.tipo));
+  if (linha.medida) partes.push(linha.medida.rotulo);
+  return partes.join(' · ');
+}
+
+function aoMudarCarrinho() {
+  atualizarContagem();
+  refreshers.forEach((f) => f());
+}
+
+function adicionarLinha(produto, tipo, medida, quantidade) {
+  const chave = chaveLinha(produto, tipo, medida.id);
+  const atual = carrinho.get(chave);
+  if (atual) {
+    atual.quantidade += quantidade;
+  } else {
+    carrinho.set(chave, { produto, tipo, medida, quantidade, passo: medida.qtd });
+  }
+  aoMudarCarrinho();
+}
+
+// Popup de escolha (tipo / medida): lista de botões grandes por cima da tela.
+function abrirEscolha(titulo, subtitulo, opcoes, atualId, aoEscolher) {
+  const overlay = document.getElementById('overlay-escolha');
+  const lista = document.getElementById('escolha-lista');
+  document.getElementById('escolha-titulo').textContent = titulo;
+  document.getElementById('escolha-sub').textContent = subtitulo || '';
+  lista.replaceChildren();
+  for (const o of opcoes) {
+    const b = el('button', 'escolha-opcao' + (o.id === atualId ? ' atual' : ''), o.rotulo);
+    b.type = 'button';
+    b.addEventListener('click', () => {
+      overlay.hidden = true;
+      aoEscolher(o);
+    });
+    lista.appendChild(b);
+  }
+  overlay.hidden = false;
+}
+document.getElementById('escolha-cancelar').addEventListener('click', () => {
+  document.getElementById('overlay-escolha').hidden = true;
+});
+document.getElementById('overlay-escolha').addEventListener('click', (e) => {
+  if (e.target.id === 'overlay-escolha') e.target.hidden = true;
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') document.getElementById('overlay-escolha').hidden = true;
+});
+
+function carregarClienteSalvo() {
+  try {
+    const salvo = localStorage.getItem('babyluz_cliente');
+    return salvo ? JSON.parse(salvo) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function salvarCliente(dados) {
+  try {
+    localStorage.setItem('babyluz_cliente', JSON.stringify(dados));
+  } catch (e) {
+    // localStorage indisponível (aba anônima, etc) -- sem problema, só vai
+    // pedir nome/telefone de novo na próxima visita.
+  }
+}
+
+// Link personalizado (?c=codigo) -- gerado pelo "Catálogo Personalizado"
+// no programa: mostra só o catálogo escolhido pra esse cliente, com o
+// nome dele no topo, em vez da vitrine geral com todos os catálogos.
+const codigoPersonalizado = new URLSearchParams(location.search).get('c');
+
+// MODO TESTE (?teste=1): só pra o dono VER o catálogo novo (tipo/medida/carrinho) antes
+// das clientes: trata todo catálogo sem categoria como aplique (ou faixa, se o nome tiver
+// "faixa") e NÃO envia pedido nenhum. Quem abre o site normal nunca cai aqui.
+const MODO_TESTE = new URLSearchParams(location.search).get('teste') === '1';
+
+carregarCatalogo();
+carregarRepresentantes();
+
+document.getElementById('rep-trigger').addEventListener('click', () => {
+  document.getElementById('rep-wrap').classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  if (!document.getElementById('rep-wrap').contains(e.target)) {
+    document.getElementById('rep-wrap').classList.remove('open');
+  }
+});
+
+// Lista de representantes ativos pro seletor obrigatório do pedido (ver
+// #overlay) -- carregada uma vez já no início; se der errado, tenta de novo
+// na hora de abrir o formulário (mostrarFormulario), pra não deixar a
+// cliente travada com o seletor vazio por causa de uma falha passageira.
+async function carregarRepresentantes() {
+  try {
+    const resp = await fetch(`${API}/representantes_publicos.php?_=${Date.now()}`, { cache: 'no-store' });
+    const representantes = await resp.json();
+    const dropdown = document.getElementById('rep-dropdown');
+    dropdown.innerHTML = '';
+    representantes.forEach((r) => {
+      const opt = document.createElement('div');
+      opt.className = 'rep-opt';
+      opt.dataset.id = r.id;
+      opt.innerHTML = `<div class="rep-opt__nome">${r.nome}</div>${r.regiao ? `<div class="rep-opt__regiao">${r.regiao}</div>` : ''}`;
+      opt.addEventListener('click', () => {
+        document.getElementById('input-representante').value = r.id;
+        document.getElementById('rep-label').textContent = r.nome;
+        document.getElementById('rep-trigger').classList.add('filled');
+        dropdown.querySelectorAll('.rep-opt').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        document.getElementById('rep-wrap').classList.remove('open');
+      });
+      dropdown.appendChild(opt);
+    });
+    window._repCarregados = representantes;
+  } catch (e) {
+    // tenta de novo em mostrarFormulario
+  }
+}
+
+async function carregarCatalogo() {
+  document.getElementById('tela-carregando').style.display = 'block';
+  try {
+    await carregarRegras();
+    if (codigoPersonalizado) {
+      // cache: 'no-store' + timestamp -- mesmo motivo do catalogo.php normal
+      // (ver comentário abaixo), aplicado aqui também.
+      const resp = await fetch(
+        `${API}/catalogo_personalizado.php?c=${encodeURIComponent(codigoPersonalizado)}&_=${Date.now()}`,
+        { cache: 'no-store' });
+      if (!resp.ok) throw new Error('link não encontrado');
+      const dados = await resp.json();
+      document.getElementById('titulo-header').textContent = `Catálogo para ${dados.cliente_nome}`;
+      document.getElementById('subtitulo-header').textContent =
+        'Escolha os desenhos que você quer no seu pedido';
+      montarGrade(dados.produtos, true);
+      return;
+    }
+    // cache: 'no-store' + a timestamp in the URL -- belt-and-suspenders
+    // against a stale catalog: catalogo.php already sends Cache-Control:
+    // no-store itself, but a platform-level cache in front of it (proxy/
+    // CDN) can apply its own rule by URL pattern before origin headers are
+    // even read, and a changing query string defeats that either way.
+    const resp = await fetch(`${API}/catalogo.php?_=${Date.now()}`, { cache: 'no-store' });
+    const produtos = await resp.json();
+    montarGrade(produtos);
+  } catch (e) {
+    document.getElementById('tela-carregando').textContent =
+      'Não consegui carregar o catálogo agora. Tenta recarregar a página.';
+  }
+}
+
+function montarGrade(produtos, abrirPrimeiroAutomaticamente) {
+  if (MODO_TESTE) {
+    for (const p of produtos) {
+      if (!p.categoria) p.categoria = /faixa/i.test(p.catalogo_nome || '') ? 'faixa' : 'aplique';
+    }
+    const aviso = document.createElement('div');
+    aviso.textContent = 'MODO TESTE — só pra visualizar. Nenhum pedido é enviado.';
+    aviso.style.cssText = 'background:#fff3cd;color:#7a5b00;text-align:center;padding:8px 12px;font-size:.85rem;font-weight:600;';
+    document.querySelector('header').after(aviso);
+  }
+  document.getElementById('tela-carregando').style.display = 'none';
+  const grade = document.getElementById('grade');
+  grade.hidden = false;
+  document.getElementById('barra-finalizar').hidden = false;
+
+  const porCatalogo = new Map();
+  for (const produto of produtos) {
+    const nomeCatalogo = produto.catalogo_nome || 'Outros';
+    if (!porCatalogo.has(nomeCatalogo)) {
+      porCatalogo.set(nomeCatalogo, []);
+    }
+    porCatalogo.get(nomeCatalogo).push(produto);
+  }
+
+  // Sanfona: só um catálogo aberto por vez -- abrir um fecha o anterior
+  // automaticamente, em vez de deixar vários abertos ao mesmo tempo.
+  let catalogoAberto = null;
+  let primeiroBotao = null;
+
+  for (const [nomeCatalogo, itensDoCatalogo] of porCatalogo) {
+    const secao = document.createElement('div');
+    secao.className = 'secao-catalogo';
+
+    // Fecha por padrão -- só monta as fotos desse catálogo (e só então
+    // carrega as imagens) quando a pessoa realmente clica pra abrir, em vez
+    // de despejar todos os catálogos abertos de uma vez, o que deixava
+    // tudo bagunçado e dava preguiça de rolar pra ver.
+    const botao = document.createElement('button');
+    botao.type = 'button';
+    botao.className = 'catalogo-botao';
+    botao.innerHTML = `
+      <span class="catalogo-botao-nome">${nomeCatalogo}</span>
+      <span class="catalogo-botao-info">
+        <span class="catalogo-botao-seta">▾</span>
+      </span>
+    `;
+    secao.appendChild(botao);
+
+    const gradeDoCatalogo = document.createElement('div');
+    gradeDoCatalogo.className = 'grade-produtos';
+    gradeDoCatalogo.hidden = true;
+    secao.appendChild(gradeDoCatalogo);
+
+    let montado = false;
+    botao.addEventListener('click', () => {
+      const estaAberto = !gradeDoCatalogo.hidden;
+
+      if (catalogoAberto && catalogoAberto.grade !== gradeDoCatalogo) {
+        catalogoAberto.grade.hidden = true;
+        catalogoAberto.botao.classList.remove('aberto');
+      }
+
+      if (estaAberto) {
+        gradeDoCatalogo.hidden = true;
+        botao.classList.remove('aberto');
+        catalogoAberto = null;
+        return;
+      }
+
+      if (!montado) {
+        montarProdutosDoCatalogo(gradeDoCatalogo, itensDoCatalogo);
+        montado = true;
+      }
+      gradeDoCatalogo.hidden = false;
+      botao.classList.add('aberto');
+      catalogoAberto = { botao, grade: gradeDoCatalogo };
+    });
+
+    grade.appendChild(secao);
+    if (!primeiroBotao) primeiroBotao = botao;
+  }
+
+  // Link personalizado: só tem um catálogo mesmo, então já abre direto
+  // pro cliente ver as figuras sem precisar clicar pra expandir.
+  if (abrirPrimeiroAutomaticamente && primeiroBotao) {
+    primeiroBotao.click();
+  }
+}
+
+// Abre um catálogo pelo nome — usado pelo chat da Maria.
+window.abrirCatalogoPorNome = function(nomeBuscado) {
+  const botoes = document.querySelectorAll('.catalogo-botao');
+  for (const btn of botoes) {
+    const nomeEl = btn.querySelector('.catalogo-botao-nome');
+    if (nomeEl && nomeEl.textContent.trim().toUpperCase() === nomeBuscado.toUpperCase()) {
+      document.getElementById('chat-panel').classList.remove('copen');
+      if (!btn.classList.contains('aberto')) btn.click();
+      setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      return true;
+    }
+  }
+  return false;
+};
+
+// Retorna conteúdo do carrinho para o chat — Maria lê sem o cliente digitar nada.
+window.lerCarrinhoPraChat = function() {
+  if (typeof carrinho === 'undefined' || carrinho.size === 0) return null;
+  return Array.from(carrinho.values()).map(item => ({
+    catalogo: item.produto.catalogo_nome,
+    ref:      item.produto.referencia,
+    nome:     item.produto.nome || '',
+    tipo:     item.tipo || null,
+    medida:   item.medida ? item.medida.rotulo : null,
+    quantidade: item.quantidade
+  }));
+};
+
+function montarProdutosDoCatalogo(container, itens) {
+  for (const produto of itens) {
+    const categoria = REGRAS && REGRAS.categorias ? REGRAS.categorias[produto.categoria] : null;
+    container.appendChild(categoria ? montarCardNovo(produto, categoria) : montarCardLegado(produto));
+  }
+}
+
+// Card de catálogo classificado (aplique / faixa):
+//   1) botão Tipo -> popup   2) botão Medida -> popup
+//   3) quantidade com − e + (anda no múltiplo da medida) + Adicionar ao carrinho.
+// Adicionar manda a linha pro carrinho e o card volta ao começo pra escolher de novo.
+function montarCardNovo(produto, categoria) {
+  const tipos = Object.keys(categoria.tipos); // aplique: 2 tipos; faixa: só termo colante
+  let tipoSel = tipos.length === 1 ? tipos[0] : null;
+  let medidaSel = null;
+  let quantidadeSel = 0;
+
+  const card = el('div', 'produto');
+  const img = document.createElement('img');
+  img.src = produto.imagem_url;
+  img.alt = produto.referencia;
+  img.loading = 'lazy';
+  img.addEventListener('click', () => abrirLightbox(produto));
+  card.appendChild(img);
+  card.appendChild(el('div', 'ref', rotuloProduto(produto)));
+
+  function botaoSeletor() {
+    const b = el('button', 'seletor-btn');
+    b.type = 'button';
+    b.appendChild(el('span', 'seletor-texto'));
+    return b;
+  }
+
+  // 1) Tipo (faixa só existe em termo colante: não tem o que escolher)
+  let botTipo = null;
+  if (tipos.length > 1) {
+    botTipo = botaoSeletor();
+    botTipo.addEventListener('click', () => {
+      abrirEscolha('Escolha o tipo', produto.referencia,
+        tipos.map((t) => ({ id: t, rotulo: rotuloTipo(t) })), tipoSel,
+        (o) => {
+          if (tipoSel !== o.id) {
+            tipoSel = o.id;
+            medidaSel = null; // as medidas (e a quantidade) mudam de um tipo pro outro
+            quantidadeSel = 0;
+          }
+          desenhar();
+        });
+    });
+    card.appendChild(botTipo);
+  } else {
+    card.appendChild(el('div', 'tipo-fixo', rotuloTipo(tipos[0])));
+  }
+
+  // 2) Medida
+  const botMedida = botaoSeletor();
+  botMedida.addEventListener('click', () => {
+    abrirEscolha('Escolha a medida', `${produto.referencia} · ${rotuloTipo(tipoSel)}`,
+      medidasDoTipo().map((m) => ({ id: m.id, rotulo: m.rotulo, m })), medidaSel && medidaSel.id,
+      (o) => {
+        medidaSel = o.m;
+        quantidadeSel = o.m.qtd; // começa na quantidade daquela medida
+        desenhar();
+      });
+  });
+  card.appendChild(botMedida);
+
+  // 3) Quantidade (− / +) e Adicionar
+  const linhaQtd = el('div', 'qtd-linha');
+  const menos = el('button', 'qtd-btn qtd-menos', '−');
+  const valorEl = el('span', 'qtd-valor', '0');
+  const mais = el('button', 'qtd-btn qtd-mais', '+');
+  menos.type = mais.type = 'button';
+  linhaQtd.append(menos, valorEl, mais);
+  card.appendChild(linhaQtd);
+  menos.addEventListener('click', () => {
+    if (medidaSel && quantidadeSel - medidaSel.qtd >= medidaSel.qtd) {
+      quantidadeSel -= medidaSel.qtd;
+      desenhar();
+    }
+  });
+  mais.addEventListener('click', () => {
+    if (medidaSel && quantidadeSel + medidaSel.qtd <= 9999) {
+      quantidadeSel += medidaSel.qtd;
+      desenhar();
+    }
+  });
+
+  const botaoAdd = el('button', 'qtd-adicionar', 'Adicionar ao carrinho');
+  botaoAdd.type = 'button';
+  card.appendChild(botaoAdd);
+
+  // Linha verde do card: "✓ Adicionado ao carrinho" por um instante ao adicionar; depois fica
+  // sempre "No carrinho: N figuras" (total dessa figura no carrinho) enquanto tiver alguma.
+  const msgAdd = el('div', 'msg-add');
+  msgAdd.hidden = true;
+  card.appendChild(msgAdd);
+  let recemAdicionado = false;
+
+  function medidasDoTipo() {
+    let lista = tipoSel ? categoria.tipos[tipoSel] : [];
+    // "Medidas (site)" do catálogo no programa pode restringir quais medidas
+    // aparecem; valores que não existem na tabela (texto antigo) são ignorados.
+    const permitidas = (produto.medidas || []).map(String);
+    if (permitidas.length && lista.some((m) => permitidas.includes(String(m.id)))) {
+      lista = lista.filter((m) => permitidas.includes(String(m.id)));
+    }
+    return lista;
+  }
+
+  function desenhar() {
+    if (botTipo) {
+      botTipo.querySelector('.seletor-texto').textContent = tipoSel ? `Tipo: ${rotuloTipo(tipoSel)}` : 'Escolher tipo';
+      botTipo.classList.toggle('escolhido', !!tipoSel);
+    }
+    botMedida.hidden = !tipoSel;
+    botMedida.querySelector('.seletor-texto').textContent = medidaSel ? `Medida: ${medidaSel.rotulo}` : 'Escolher medida';
+    botMedida.classList.toggle('escolhido', !!medidaSel);
+    linhaQtd.hidden = !medidaSel;
+    botaoAdd.hidden = !medidaSel;
+    if (medidaSel) {
+      valorEl.textContent = quantidadeSel;
+      menos.disabled = quantidadeSel <= medidaSel.qtd;
+    }
+  }
+
+  function atualizarResumo() {
+    let total = 0;
+    for (const linha of carrinho.values()) {
+      if (linha.produto.catalogo_nome === produto.catalogo_nome && linha.produto.referencia === produto.referencia) {
+        total += linha.quantidade;
+      }
+    }
+    if (recemAdicionado) {
+      msgAdd.textContent = '✓ Adicionado ao carrinho';
+      msgAdd.hidden = false;
+      return;
+    }
+    msgAdd.hidden = total === 0;
+    if (total > 0) msgAdd.textContent = `No carrinho: ${total} ${total === 1 ? 'figura' : 'figuras'}`;
+  }
+
+  botaoAdd.addEventListener('click', () => {
+    if (!tipoSel || !medidaSel) return;
+    adicionarLinha(produto, tipoSel, medidaSel, quantidadeSel);
+    tipoSel = tipos.length === 1 ? tipos[0] : null; // card volta ao começo
+    medidaSel = null;
+    quantidadeSel = 0;
+    desenhar();
+    recemAdicionado = true;
+    atualizarResumo();
+    setTimeout(() => { recemAdicionado = false; atualizarResumo(); }, 1600);
+  });
+
+  refreshers.push(atualizarResumo); // tirar/mudar no carrinho atualiza o número no card
+  desenhar();
+  atualizarResumo();
+  return card;
+}
+
+// Card do modo antigo (catálogo sem categoria): "Adicionar" entra com 7 e anda de
+// 7 em 7; seletor de medida em texto livre só se o catálogo tiver "Medidas (site)".
+function montarCardLegado(produto) {
+  const medidas = Array.isArray(produto.medidas) ? produto.medidas : [];
+  let medidaEscolhida = medidas[0] || null;
+
+  const card = document.createElement('div');
+  card.className = 'produto';
+  card.innerHTML = `
+    <img src="${produto.imagem_url}" alt="${produto.referencia}" loading="lazy">
+    <div class="ref">${produto.referencia}${produto.nome ? ' · ' + produto.nome : ''}</div>
+    ${medidas.length > 0 ? `<div class="medida-linha"></div>` : ''}
+    <button type="button" class="qtd-adicionar">Adicionar</button>
+    <div class="qtd-linha" hidden>
+      <button type="button" class="qtd-btn qtd-menos">−</button>
+      <span class="qtd-valor">${QUANTIDADE_LEGADO}</span>
+      <button type="button" class="qtd-btn qtd-mais">+</button>
+    </div>
+  `;
+  const botaoAdicionar = card.querySelector('.qtd-adicionar');
+  const linhaQtd = card.querySelector('.qtd-linha');
+  const valorEl = card.querySelector('.qtd-valor');
+  const linhaMedida = card.querySelector('.medida-linha');
+
+  const chaveAtual = () => chaveLinha(produto, null, medidaEscolhida);
+  const medidaObj = () => (medidaEscolhida ? { id: medidaEscolhida, rotulo: medidaEscolhida } : null);
+
+  const atualizarCard = () => {
+    const linha = carrinho.get(chaveAtual());
+    const quantidade = linha ? linha.quantidade : 0;
+    if (quantidade > 0) {
+      card.classList.add('selecionado');
+      botaoAdicionar.hidden = true;
+      linhaQtd.hidden = false;
+      valorEl.textContent = quantidade;
+    } else {
+      card.classList.remove('selecionado');
+      botaoAdicionar.hidden = false;
+      linhaQtd.hidden = true;
+    }
+  };
+
+  const definirQuantidade = (quantidade) => {
+    const chave = chaveAtual();
+    if (quantidade <= 0) {
+      carrinho.delete(chave);
+    } else {
+      quantidade = Math.min(quantidade, 98); // maior múltiplo de 7 até 99
+      carrinho.set(chave, {
+        produto, tipo: null, medida: medidaObj(), quantidade, passo: QUANTIDADE_LEGADO,
+      });
+    }
+    aoMudarCarrinho();
+  };
+
+  if (linhaMedida) {
+    for (const medida of medidas) {
+      const botaoMedida = document.createElement('button');
+      botaoMedida.type = 'button';
+      botaoMedida.className = 'medida-btn' + (medida === medidaEscolhida ? ' selecionada' : '');
+      botaoMedida.textContent = medida;
+      botaoMedida.addEventListener('click', () => {
+        // Já no carrinho: a linha muda pra nova medida, com a mesma quantidade.
+        const antiga = carrinho.get(chaveAtual());
+        if (antiga) carrinho.delete(chaveAtual());
+        medidaEscolhida = medida;
+        if (antiga) {
+          antiga.medida = medidaObj();
+          carrinho.set(chaveAtual(), antiga);
+        }
+        linhaMedida.querySelectorAll('.medida-btn').forEach((b) => {
+          b.classList.toggle('selecionada', b.textContent === medida);
+        });
+        aoMudarCarrinho();
+      });
+      linhaMedida.appendChild(botaoMedida);
+    }
+  }
+
+  botaoAdicionar.addEventListener('click', () => definirQuantidade(QUANTIDADE_LEGADO));
+  card.querySelector('.qtd-mais').addEventListener('click', () => {
+    const atual = carrinho.get(chaveAtual());
+    definirQuantidade((atual ? atual.quantidade : 0) + QUANTIDADE_LEGADO);
+  });
+  card.querySelector('.qtd-menos').addEventListener('click', () => {
+    const atual = carrinho.get(chaveAtual());
+    definirQuantidade((atual ? atual.quantidade : 0) - QUANTIDADE_LEGADO);
+  });
+  card.querySelector('img').addEventListener('click', () => abrirLightbox(produto));
+
+  refreshers.push(atualizarCard);
+  atualizarCard();
+  return card;
+}
+
+// Zoom da figura: miniatura pequena no card é difícil de ver em detalhe,
+// clicar nela abre a mesma imagem grande e centralizada por cima de tudo.
+const lightboxOverlay = document.getElementById('lightbox-overlay');
+const lightboxImagem = document.getElementById('lightbox-imagem');
+const lightboxRef = document.getElementById('lightbox-ref');
+
+function abrirLightbox(produto) {
+  lightboxImagem.src = produto.imagem_grande_url || produto.imagem_url;
+  lightboxImagem.alt = produto.referencia;
+  lightboxRef.textContent = rotuloProduto(produto);
+  lightboxOverlay.hidden = false;
+}
+
+function fecharLightbox() {
+  lightboxOverlay.hidden = true;
+  lightboxImagem.src = '';
+}
+
+document.getElementById('lightbox-fechar').addEventListener('click', fecharLightbox);
+lightboxOverlay.addEventListener('click', (evento) => {
+  if (evento.target === lightboxOverlay) fecharLightbox();
+});
+document.addEventListener('keydown', (evento) => {
+  if (evento.key === 'Escape' && !lightboxOverlay.hidden) fecharLightbox();
+});
+
+function totalItens() {
+  let total = 0;
+  for (const { quantidade } of carrinho.values()) {
+    total += quantidade;
+  }
+  return total;
+}
+
+function atualizarContagem() {
+  const total = totalItens();
+  document.getElementById('contagem').textContent = `${total} peça(s) no carrinho`;
+  document.getElementById('btn-carrinho').textContent = carrinho.size > 0 ? `🛒 Carrinho (${carrinho.size})` : '🛒 Carrinho';
+}
+
+document.getElementById('btn-carrinho').addEventListener('click', mostrarCarrinho);
+document.getElementById('btn-finalizar').addEventListener('click', () => {
+  if (carrinho.size === 0) {
+    alert('Adicione pelo menos um desenho ao carrinho antes de finalizar.');
+    return;
+  }
+  mostrarCarrinho();
+});
+
+// Carrinho: a cliente confere o que adicionou, ajusta a quantidade (sempre em
+// múltiplos da quantidade da medida) ou tira uma linha, e só então finaliza.
+function mostrarCarrinho() {
+  const lista = document.getElementById('lista-revisao');
+  lista.replaceChildren();
+
+  if (carrinho.size === 0) {
+    lista.appendChild(el('p', 'carrinho-vazio', 'Seu carrinho está vazio. Escolha os desenhos e toque em Adicionar.'));
+  }
+
+  for (const [chave, linha] of carrinho) {
+    const linhaEl = el('div', 'linha-carrinho');
+
+    const img = document.createElement('img');
+    img.src = linha.produto.imagem_url;
+    img.alt = linha.produto.referencia;
+    linhaEl.appendChild(img);
+
+    const info = el('div');
+    info.appendChild(el('div', 'lc-ref', rotuloProduto(linha.produto)));
+    const detalhe = textoLinha(linha);
+    if (detalhe) info.appendChild(el('div', 'lc-detalhe', detalhe));
+    linhaEl.appendChild(info);
+
+    const qtd = el('div', 'lc-qtd');
+    const menos = el('button', 'qtd-btn', '−');
+    menos.type = 'button';
+    menos.disabled = linha.quantidade <= linha.passo;
+    menos.addEventListener('click', () => {
+      linha.quantidade -= linha.passo;
+      aoMudarCarrinho();
+      mostrarCarrinho();
+    });
+    const valor = el('span', 'qtd-valor', String(linha.quantidade));
+    const mais = el('button', 'qtd-btn', '+');
+    mais.type = 'button';
+    mais.addEventListener('click', () => {
+      linha.quantidade += linha.passo;
+      aoMudarCarrinho();
+      mostrarCarrinho();
+    });
+    qtd.append(menos, valor, mais);
+    linhaEl.appendChild(qtd);
+
+    const remover = el('button', 'lc-remover', '🗑');
+    remover.type = 'button';
+    remover.title = 'Tirar do carrinho';
+    remover.addEventListener('click', () => {
+      carrinho.delete(chave);
+      aoMudarCarrinho();
+      mostrarCarrinho();
+    });
+    linhaEl.appendChild(remover);
+
+    lista.appendChild(linhaEl);
+  }
+
+  document.getElementById('total-revisao').textContent = carrinho.size > 0
+    ? `${carrinho.size} item(ns) · Total: ${totalItens()} peça(s)`
+    : '';
+  document.getElementById('btn-continuar-revisao').disabled = carrinho.size === 0;
+  document.getElementById('overlay-revisao').hidden = false;
+}
+
+document.getElementById('btn-voltar-revisao').addEventListener('click', () => {
+  document.getElementById('overlay-revisao').hidden = true;
+});
+
+document.getElementById('btn-continuar-revisao').addEventListener('click', () => {
+  document.getElementById('overlay-revisao').hidden = true;
+
+  // Cliente já identificado antes (localStorage) -- pré-preenche em vez de
+  // pedir de novo, mas os campos continuam editáveis (pode ser outro
+  // pedido com outro representante, por exemplo). O representante nunca
+  // vem do localStorage -- é obrigatório escolher de novo a cada pedido.
+  const clienteSalvo = carregarClienteSalvo();
+  document.getElementById('input-nome').value = clienteSalvo?.nome || '';
+  document.getElementById('input-telefone').value = clienteSalvo?.telefone || '';
+  document.getElementById('input-representante').value = '';
+  document.getElementById('rep-label').textContent = 'Selecione o representante';
+  document.getElementById('rep-trigger').classList.remove('filled');
+  document.getElementById('rep-wrap').classList.remove('open');
+  document.getElementById('rep-dropdown').querySelectorAll('.rep-opt').forEach(o => o.classList.remove('active'));
+  document.getElementById('modal-erro').textContent = '';
+
+  if (!window._repCarregados?.length) {
+    carregarRepresentantes(); // primeira tentativa falhou -- tenta de novo
+  }
+
+  document.getElementById('overlay').hidden = false;
+});
+
+document.getElementById('btn-cancelar-pedido').addEventListener('click', () => {
+  document.getElementById('overlay').hidden = true;
+});
+
+document.getElementById('btn-confirmar-pedido').addEventListener('click', () => {
+  const nome = document.getElementById('input-nome').value.trim();
+  const telefone = document.getElementById('input-telefone').value.trim();
+  const representanteId = document.getElementById('input-representante').value;
+  const erro = document.getElementById('modal-erro');
+  if (!nome || !telefone) {
+    erro.textContent = 'Preenche nome e telefone, por favor.';
+    return;
+  }
+  if (!representanteId) {
+    erro.textContent = 'Escolhe o representante, por favor.';
+    return;
+  }
+  const cliente = { nome, telefone, representanteId };
+  salvarCliente({ nome, telefone });
+  document.getElementById('overlay').hidden = true;
+  enviarPedido(cliente);
+});
+
+async function enviarPedido(cliente) {
+  if (MODO_TESTE) {
+    alert('MODO TESTE: o pedido NÃO foi enviado (era só pra visualizar).');
+    return;
+  }
+  const botao = document.getElementById('btn-finalizar');
+  botao.disabled = true;
+
+  const overlay = document.getElementById('overlay-processando');
+  const modal = document.getElementById('modal-processando');
+  const totalPedido = totalItens();
+
+  // Passos avançam no próprio ritmo (não são o request real acontecendo
+  // "ao vivo" -- isso ia embutir/expor detalhe técnico irrelevante pra
+  // cliente) -- mas o resultado final só aparece depois que o fetch de
+  // verdade também terminou (Promise.all abaixo), então um pedido lento
+  // nunca mostra "pronto" antes da hora, só continua nos passos.
+  modal.innerHTML = `
+    <div class="spinner-anel"></div>
+    <h2>Enviando seu pedido...</h2>
+    <ul id="passos-processando">
+      <li><span class="passo-check">✓</span> Confirmando seus desenhos</li>
+      <li><span class="passo-check">✓</span> Registrando seu pedido</li>
+      <li><span class="passo-check">✓</span> Quase pronto!</li>
+    </ul>
+  `;
+  overlay.hidden = false;
+
+  const animarPassos = (async () => {
+    const passos = Array.from(modal.querySelectorAll('#passos-processando li'));
+    for (const passo of passos) {
+      await new Promise((r) => setTimeout(r, 550 + Math.random() * 250));
+      passo.classList.add('feito');
+    }
+  })();
+
+  const enviarAoServidor = (async () => {
+    // Uma entrada por LINHA do carrinho (figura + tipo + medida); a mesma figura
+    // pode aparecer mais de uma vez.
+    const itens = Array.from(carrinho.values()).map(({ produto, tipo, medida, quantidade }) => ({
+      catalogo_nome: produto.catalogo_nome,
+      referencia: produto.referencia,
+      quantidade,
+      medida: medida ? medida.id : null,
+      tipo: tipo || null,
+    }));
+    const resp = await fetch(`${API}/finalizar.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome: cliente.nome, telefone: cliente.telefone,
+        representante_id: Number(cliente.representanteId), itens,
+      }),
+    });
+    const data = await resp.json();
+    if (!resp.ok || !data.ok) {
+      throw new Error(data.erro || 'erro desconhecido');
+    }
+  })();
+
+  try {
+    await Promise.all([animarPassos, enviarAoServidor]);
+
+    modal.innerHTML = `
+      <div class="check-final">✓</div>
+      <h2>Tudo certo!</h2>
+      <p style="color:#7a6570; font-size:.88rem; margin:0;">Redirecionando...</p>
+    `;
+    await new Promise((r) => setTimeout(r, 850));
+
+    overlay.hidden = true;
+    document.getElementById('grade').hidden = true;
+    document.getElementById('barra-finalizar').hidden = true;
+    document.getElementById('sucesso-resumo').textContent =
+      `Você escolheu ${totalPedido} peça(s)`;
+    document.getElementById('tela-sucesso').style.display = 'block';
+  } catch (e) {
+    overlay.hidden = true;
+    alert(e && e.message && e.message.includes('recarregue')
+      ? e.message
+      : 'Não consegui enviar seu pedido. Tenta de novo em instantes.');
+    botao.disabled = false;
+  }
+}
+
+// Recarrega a página do zero -- simplesmente reabrir a grade/carrinho aqui
+// deixaria o carrinho antigo (já enviado) ainda selecionado; um reload
+// garante que ela começa igual a quem tivesse acabado de abrir o link.
+document.getElementById('btn-novo-pedido').addEventListener('click', () => {
+  location.reload();
+});
+</script>
+
+<!-- ===================== CHAT MARIA ===================== -->
+<button id="chat-fab" onclick="chatToggle()" aria-label="Falar com Maria">
+  <div class="cfab-av">M</div>
+  <span class="cfab-lbl">Falar com Maria</span>
+  <span class="cfab-dot"></span>
+</button>
+
+<div id="chat-panel" role="dialog" aria-label="Chat com Maria">
+  <div class="ch-head">
+    <div class="ch-av-wrap">
+      <div class="ch-av">M</div>
+      <span class="ch-online"></span>
+    </div>
+    <div>
+      <div class="ch-name">Maria 💕</div>
+      <div class="ch-sub">Consultora BabyLuz · Online agora</div>
+    </div>
+    <button class="ch-close" onclick="chatToggle()" aria-label="Fechar chat">✕</button>
+  </div>
+
+  <div id="ch-msgs"></div>
+
+  <div id="ch-typing" style="display:none">
+    <div class="ch-av ch-av-sm">M</div>
+    <div class="ch-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- Barra do carrinho ao vivo -->
+  <div id="ch-cart-bar" hidden>
+    <div id="ch-cart-bar-inner"></div>
+    <button id="ch-cart-btn" onclick="chatEnviarCarrinho()">Terminou? Clica aqui 💕</button>
+  </div>
+
+  <div class="ch-inp-wrap">
+    <input id="ch-inp" type="text" placeholder="Digite sua mensagem..." autocomplete="off" maxlength="500">
+    <button id="ch-send" onclick="chatSend()" aria-label="Enviar">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  let chOpen  = false;
+  let chBusy  = false;
+  let chMsgs  = []; // [{role,content}] — histórico enviado à API
+  const chSid = Math.random().toString(36).slice(2, 10);
+
+  function chatToggle() {
+    chOpen = !chOpen;
+    document.getElementById('chat-panel').classList.toggle('copen', chOpen);
+    if (chOpen && chMsgs.length === 0) {
+      const saudacao = 'Olá! 💕 Sou a **Maria**, consultora virtual da BabyLuz Confecções.\n\nAqui você encontra apliques e faixas lindas para personalizar suas peças!\n\nPrimeiro, me diz o seu nome? 😊';
+      chatRender('cm', saudacao);
+      chMsgs.push({ role: 'assistant', content: saudacao.replace(/\*\*/g, '') });
+    }
+    if (chOpen) setTimeout(() => document.getElementById('ch-inp').focus(), 280);
+  }
+  window.chatToggle = chatToggle;
+
+  function chatRender(cls, text, resumo) {
+    const wrap = document.getElementById('ch-msgs');
+    const row  = document.createElement('div');
+    row.className = 'ch-row ' + cls;
+
+    const formatted = text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+
+    const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+    let inner = '';
+    if (cls === 'cm') inner += '<div class="ch-av ch-av-sm">M</div>';
+
+    inner += `<div>
+      <div class="ch-bubble">${formatted}</div>
+      <div class="ch-time">${hora}</div>`;
+
+    if (resumo) {
+      const safe = resumo.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      inner += `<div class="ch-order">
+        <div class="ch-order-ttl">📋 Resumo do Pedido</div>
+        <div class="ch-order-txt">${safe}</div>
+        <button class="ch-copy-btn" data-txt="${encodeURIComponent(resumo)}">📋 Copiar pedido</button>
+      </div>`;
+    }
+
+    inner += '</div>';
+    row.innerHTML = inner;
+    wrap.appendChild(row);
+    wrap.scrollTop = wrap.scrollHeight;
+
+    if (resumo) {
+      row.querySelector('.ch-copy-btn').addEventListener('click', function() {
+        const txt = decodeURIComponent(this.dataset.txt);
+        navigator.clipboard.writeText(txt).then(() => {
+          this.textContent = '✅ Copiado!';
+          setTimeout(() => { this.textContent = '📋 Copiar pedido'; }, 2200);
+        });
+      });
+    }
+  }
+
+  async function chatSend() {
+    if (chBusy) return;
+    const inp  = document.getElementById('ch-inp');
+    const text = inp.value.trim();
+    if (!text) return;
+
+    inp.value = '';
+    chatRender('cu', text);
+    chMsgs.push({ role: 'user', content: text });
+
+    chBusy = true;
+    document.getElementById('ch-send').disabled = true;
+    document.getElementById('ch-typing').style.display = 'flex';
+    document.getElementById('ch-msgs').scrollTop = 99999;
+
+    try {
+      const cartData = (typeof window.lerCarrinhoPraChat === 'function')
+        ? window.lerCarrinhoPraChat() : null;
+
+      const res  = await fetch('/api/chat.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: chMsgs, session_id: chSid, carrinho: cartData })
+      });
+      const data = await res.json();
+
+      document.getElementById('ch-typing').style.display = 'none';
+
+      if (data.erro) {
+        chatRender('cm', '⚠️ ' + data.erro);
+      } else {
+        chatRender('cm', data.resposta, data.pedido_resumo || null);
+        if (Array.isArray(data.catalog_cards) && data.catalog_cards.length > 0) {
+          chatRenderCatalogos(data.catalog_cards);
+        }
+        if (Array.isArray(data.rep_cards) && data.rep_cards.length > 0) {
+          chatRenderReps(data.rep_cards);
+        }
+        if (Array.isArray(data.mensagens)) chMsgs = data.mensagens;
+      }
+    } catch(e) {
+      document.getElementById('ch-typing').style.display = 'none';
+      chatRender('cm', '⚠️ Erro de conexão. Tente novamente em instantes 😊');
+    }
+
+    chBusy = false;
+    document.getElementById('ch-send').disabled = false;
+    inp.focus();
+  }
+  window.chatSend = chatSend;
+
+  function chatRenderCatalogos(cards) {
+    const wrap = document.getElementById('ch-msgs');
+    const row  = document.createElement('div');
+    row.className = 'ch-row cm';
+    let grid = '<div class="cat-grid">';
+    for (const c of cards) {
+      const img = c.imagem
+        ? `<img src="${c.imagem}" alt="${c.nome}" loading="lazy">`
+        : `<div class="cat-no-img">📦</div>`;
+      const nomeEsc = c.nome.replace(/'/g, "\\'");
+      grid += `<div class="cat-card" onclick="chatEscolheCatalogo('${nomeEsc}')">${img}<span>${c.nome}</span></div>`;
+    }
+    grid += '</div>';
+    row.innerHTML = `<div class="ch-av ch-av-sm">M</div><div>${grid}</div>`;
+    wrap.appendChild(row);
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  // Atualiza barra de carrinho ao vivo + pulsa botão da Maria
+  function chatAtualizarBarraCarrinho() {
+    const cartData = (typeof window.lerCarrinhoPraChat === 'function')
+      ? window.lerCarrinhoPraChat() : null;
+    const bar   = document.getElementById('ch-cart-bar');
+    const inner = document.getElementById('ch-cart-bar-inner');
+    if (!bar || !inner) return;
+    if (!cartData || cartData.length === 0) { bar.hidden = true; return; }
+
+    const total = cartData.reduce((s, i) => s + i.quantidade, 0);
+    const porCat = {};
+    for (const it of cartData) {
+      if (!porCat[it.catalogo]) porCat[it.catalogo] = 0;
+      porCat[it.catalogo] += it.quantidade;
+    }
+    let html = `<strong>🛒 ${total} figura${total !== 1 ? 's' : ''} no carrinho</strong><br>`;
+    for (const [cat, qtd] of Object.entries(porCat)) {
+      html += `<span>${cat}: ${qtd} fig${qtd !== 1 ? 's' : ''}</span><br>`;
+    }
+    inner.innerHTML = html;
+    bar.hidden = false;
+
+    // Pulsa o botão da Maria para o cliente saber que ela acompanhou
+    const fab = document.getElementById('chat-fab');
+    if (fab) {
+      fab.classList.remove('ch-pulse');
+      void fab.offsetWidth; // força reflow
+      fab.classList.add('ch-pulse');
+      setTimeout(() => fab.classList.remove('ch-pulse'), 700);
+    }
+  }
+
+  // Observa mudanças no contador de peças da página para atualizar em tempo real
+  document.addEventListener('DOMContentLoaded', function() {
+    const contagem = document.getElementById('contagem');
+    if (contagem) {
+      new MutationObserver(chatAtualizarBarraCarrinho)
+        .observe(contagem, { childList: true, characterData: true, subtree: true });
+    }
+    document.getElementById('ch-inp').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatSend(); }
+    });
+  });
+
+  function chatRenderReps(reps) {
+    const wrap = document.getElementById('ch-msgs');
+    const row  = document.createElement('div');
+    row.className = 'ch-row cm';
+    let html = '<div style="display:flex;flex-direction:column;gap:6px;max-width:260px;">';
+    for (const r of reps) {
+      const nomeEsc = r.nome.replace(/'/g, "\\'");
+      html += `<button onclick="chatEscolheRep('${nomeEsc}')" style="background:#fff;border:1.5px solid #f0c0d8;border-radius:12px;padding:9px 14px;text-align:left;cursor:pointer;font-family:inherit;transition:border-color .15s;">
+        <strong style="color:#ad1457;font-size:13px;">${r.nome}</strong>
+        ${r.regiao ? `<span style="display:block;font-size:11px;color:#888;margin-top:2px;">📍 ${r.regiao}</span>` : ''}
+      </button>`;
+    }
+    html += '</div>';
+    row.innerHTML = `<div class="ch-av ch-av-sm">M</div><div>${html}</div>`;
+    wrap.appendChild(row);
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  function chatEscolheRep(nome) {
+    document.getElementById('ch-inp').value = nome;
+    chatSend();
+  }
+  window.chatEscolheRep = chatEscolheRep;
+
+  function chatEscolheCatalogo(nome) {
+    if (typeof window.abrirCatalogoPorNome === 'function' && window.abrirCatalogoPorNome(nome)) {
+      // Abre o catálogo na página mas NÃO fecha o chat — minimiza só
+      document.getElementById('chat-panel').classList.remove('copen');
+      chOpen = false;
+      // Avisa Maria silenciosamente (sem mostrar na UI por agora)
+      chMsgs.push({ role: 'user', content: `Abri o catálogo "${nome}". Vou escolher as figuras.` });
+      chMsgs.push({ role: 'assistant', content: `Ótimo! Escolha as figuras que quiser no catálogo "${nome}". Quando terminar, clica em "Terminou? Clica aqui 💕" no chat 😊` });
+    } else {
+      document.getElementById('ch-inp').value = nome;
+      chatSend();
+    }
+  }
+  window.chatEscolheCatalogo = chatEscolheCatalogo;
+
+  async function chatEnviarCarrinho() {
+    if (!chOpen) chatToggle();
+
+    const cartData = (typeof window.lerCarrinhoPraChat === 'function')
+      ? window.lerCarrinhoPraChat() : null;
+    const total = cartData ? cartData.reduce((s, i) => s + i.quantidade, 0) : 0;
+
+    // Busca reps direto da API pública — sem depender da IA chamar a tool
+    try {
+      const resp = await fetch('/api/representantes_publicos.php');
+      const reps = await resp.json();
+      if (Array.isArray(reps) && reps.length > 0) {
+        const msg = `Perfeito! 🎉 ${total} figura${total !== 1 ? 's' : ''} selecionada${total !== 1 ? 's' : ''}!\n\nAgora escolha sua representante 💕`;
+        chatRender('cm', msg);
+        chatRenderReps(reps);
+        // Registra no histórico para a IA saber o que aconteceu
+        chMsgs.push({ role: 'user',      content: 'Terminei de escolher as figuras!' });
+        chMsgs.push({ role: 'assistant', content: msg });
+        return;
+      }
+    } catch(e) { /* fallback abaixo */ }
+
+    document.getElementById('ch-inp').value = 'Terminei de escolher!';
+    chatSend();
+  }
+  window.chatEnviarCarrinho = chatEnviarCarrinho;
+
+})();
+</script>
+
+</body>
+</html>

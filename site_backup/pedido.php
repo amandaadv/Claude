@@ -1,0 +1,76 @@
+<?php
+// Link "meu pedido" que vai pro WhatsApp (pedido.php?c=codigo). Serve o MESMO
+// pedido.html, só que com as tags de prévia (título/descrição/imagem que o
+// WhatsApp mostra ao colar o link) já preenchidas com o nome da cliente e os
+// totais -- o WhatsApp lê o HTML cru sem rodar JavaScript, então isso tem
+// que ser feito aqui no servidor. A página em si continua sendo pedido.html.
+require __DIR__ . '/api/config.php';
+require __DIR__ . '/api/pedido_util.php';
+
+header('Content-Type: text/html; charset=utf-8');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('X-Robots-Tag: noindex, nofollow');
+
+const SITE = 'https://babyluzconfeccao.com.br';
+const IMAGEM_PREVIA = SITE . '/pedido-preview.jpg'; // 1200x630
+
+$codigo = trim((string)($_GET['c'] ?? ''));
+$titulo = 'Baby Luz Confecção — Meu Pedido';
+$descricao = 'Acompanhe tudo o que você pediu na Baby Luz Confecção.';
+
+if ($codigo !== '' && strlen($codigo) <= 64) {
+    try {
+        $pdo = get_pdo();
+        pedido_garantir_tabela_links($pdo);
+        $stmt = $pdo->prepare("SELECT nome_exibicao, nome_key, telefone_key, itens_json FROM pedido_links WHERE codigo = ?");
+        $stmt->execute([$codigo]);
+        $link = $stmt->fetch();
+        if ($link) {
+            $titulo = 'Pedido de ' . $link['nome_exibicao'] . ' — Baby Luz Confecção';
+            // Mesmos totais que a página mostra (link mesclado ou foto de produção).
+            $totais = pedido_dados_do_link($pdo, $link)['totais'];
+            if ($totais['pecas'] > 0) {
+                $descricao = "{$totais['pecas']} peças · {$totais['figuras']} figuras — toque para ver o seu pedido.";
+            }
+        }
+    } catch (Throwable $e) {
+        // Banco indisponível: cai nas tags genéricas em vez de derrubar a
+        // página -- o pedido.html abaixo carrega os dados por conta própria.
+    }
+}
+
+$h = fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+$url = SITE . '/pedido.php' . ($codigo !== '' ? '?c=' . rawurlencode($codigo) : '');
+
+$html = file_get_contents(__DIR__ . '/pedido.html');
+if ($html === false) {
+    http_response_code(500);
+    echo 'Página indisponível.';
+    exit;
+}
+
+$html = preg_replace('#<title>.*?</title>#s', '<title>' . $h($titulo) . '</title>', $html, 1);
+$html = preg_replace(
+    '#<meta name="description" content="[^"]*">#',
+    '<meta name="description" content="' . $h($descricao) . '">', $html, 1);
+
+// O pedido.html já traz tags og:/twitter: genéricas -- tiradas aqui pra não
+// ficarem duplicadas (o WhatsApp usa a PRIMEIRA que encontra, e a genérica
+// vem antes da personalizada).
+$html = preg_replace('#[ \t]*<meta (?:property="og:|name="twitter:)[^>]*>\s*#', '', $html);
+
+$og = '<meta property="og:type" content="website">' . "\n"
+    . '<meta property="og:url" content="' . $h($url) . '">' . "\n"
+    . '<meta property="og:title" content="' . $h($titulo) . '">' . "\n"
+    . '<meta property="og:description" content="' . $h($descricao) . '">' . "\n"
+    . '<meta property="og:image" content="' . $h(IMAGEM_PREVIA) . '">' . "\n"
+    . '<meta property="og:image:width" content="1200">' . "\n"
+    . '<meta property="og:image:height" content="630">' . "\n"
+    . '<meta property="og:locale" content="pt_BR">' . "\n"
+    . '<meta name="twitter:card" content="summary_large_image">' . "\n"
+    . '<meta name="twitter:title" content="' . $h($titulo) . '">' . "\n"
+    . '<meta name="twitter:description" content="' . $h($descricao) . '">' . "\n"
+    . '<meta name="twitter:image" content="' . $h(IMAGEM_PREVIA) . '">' . "\n";
+$html = preg_replace('#</head>#', $og . '</head>', $html, 1);
+
+echo $html;

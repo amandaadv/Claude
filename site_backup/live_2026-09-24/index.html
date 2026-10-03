@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baby Luz Confecção — Catálogo</title>
+
+<meta name="description" content="Escolha os desenhos que você quer no seu pedido.">
+
+<!-- Open Graph / WhatsApp, Facebook, etc. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://babyluzconfeccao.com.br/">
+<meta property="og:title" content="Baby Luz Confecção — Catálogo">
+<meta property="og:description" content="Escolha os desenhos que você quer no seu pedido.">
+<meta property="og:image" content="https://babyluzconfeccao.com.br/catalogo-preview-2026-09-15.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="401">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card (some apps fall back to this) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Baby Luz Confecção — Catálogo">
+<meta name="twitter:description" content="Escolha os desenhos que você quer no seu pedido.">
+<meta name="twitter:image" content="https://babyluzconfeccao.com.br/catalogo-preview-2026-09-15.jpg">
+<style>
+  :root {
+    --rosa: #ff8fab;
+    --rosa-escuro: #e0607f;
+    --azul: #8ecae6;
+    --fundo: #fff5f7;
+    --texto: #4a3540;
+    --card-bg: #ffffff;
+    --sombra: 0 4px 16px rgba(224, 96, 127, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    padding-bottom: 90px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white;
+    padding: 28px 20px 22px;
+    text-align: center;
+    box-shadow: var(--sombra);
+  }
+  header h1 { margin: 0; font-size: 1.5rem; }
+  header p { margin: 6px 0 0; opacity: .95; font-size: .9rem; }
+
+  #overlay, #overlay-revisao {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, 0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  #modal {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: var(--sombra);
+    text-align: center;
+  }
+  #modal h2 { margin-top: 0; color: var(--rosa-escuro); }
+  #modal p, #modal-revisao p { font-size: .9rem; color: #7a6570; }
+  #modal input, #modal-revisao input, #modal select {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border: 2px solid #ffd6e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--texto);
+    background: white;
+  }
+  #modal input:focus, #modal-revisao input:focus, #modal select:focus { outline: none; border-color: var(--rosa); }
+  .btn {
+    background: var(--rosa);
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background .15s;
+  }
+  .btn:hover { background: var(--rosa-escuro); }
+  .btn:disabled { background: #d9b8c2; cursor: not-allowed; }
+  .btn-secundario {
+    background: transparent;
+    color: #9a8790;
+    border: none;
+    padding: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  #modal-erro { color: #c0392b; font-size: .85rem; min-height: 1.2em; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 18px; }
+  .secao-catalogo { margin-bottom: 14px; }
+  .catalogo-botao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--rosa-escuro);
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: transform .12s;
+    text-align: left;
+  }
+  .catalogo-botao:hover { transform: translateY(-2px); }
+  .catalogo-botao-nome { flex: 1; min-width: 0; }
+  .catalogo-botao-info { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .catalogo-botao-seta { color: var(--rosa); font-size: 1.1rem; transition: transform .2s; }
+  .catalogo-botao.aberto .catalogo-botao-seta { transform: rotate(180deg); }
+  #grade { display: flex; flex-direction: column; gap: 0; }
+  .grade-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .produto {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 3px solid transparent;
+    transition: border-color .12s;
+    position: relative;
+  }
+  .produto.selecionado { border-color: var(--rosa); }
+  .produto img { width: 100%; height: 130px; object-fit: contain; background: white; display: block; cursor: zoom-in; }
+  .produto .ref {
+    font-size: .72rem;
+    color: #9a8790;
+    text-align: center;
+    padding: 6px 4px 2px;
+  }
+
+  /* Zoom da figura -- clica na miniatura pequena do card e ela abre grande,
+     centralizada, por cima de tudo; fecha clicando fora ou no X. */
+  #lightbox-overlay {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, 0.78);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200;
+    padding: 24px;
+  }
+  #lightbox-overlay[hidden] { display: none; }
+  #lightbox-conteudo {
+    position: relative;
+    max-width: min(92vw, 640px);
+    max-height: 88vh;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #lightbox-conteudo img {
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  #lightbox-conteudo .ref {
+    margin-top: 10px;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--rosa-escuro);
+    text-align: center;
+  }
+  #lightbox-fechar {
+    position: absolute;
+    top: -14px; right: -14px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--rosa);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+  }
+  #lightbox-fechar:hover { background: var(--rosa-escuro); }
+
+  /* Quantity stepper -- sits below each figure's picture; "+" alone until
+     at least 1 is picked, then the full −/quantidade/+ row (see the
+     "adicionar"-vs-"escolhido" classes toggled in JS). Buttons are 36px+
+     tall/wide -- comfortably tappable on a phone, the device most
+     customers actually use this catalog from. */
+  .qtd-linha { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 4px 6px 10px; }
+  .qtd-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--fundo);
+    color: var(--rosa-escuro);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qtd-btn:active { background: #ffe0e9; }
+  .qtd-valor { min-width: 22px; text-align: center; font-weight: 700; color: var(--texto); }
+  .qtd-adicionar {
+    /* appearance: none -- a <button>'s native OS theming was overriding
+       the block width below in at least one real browser (screenshot
+       showed it shrink-to-fit and left-aligned despite display:block);
+       an explicit width, not just "let block layout fill the parent", is
+       what actually forces it full-width+centered everywhere. */
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: calc(100% - 12px);
+    text-align: center;
+    border: none;
+    background: var(--rosa);
+    color: white;
+    font-weight: 600;
+    font-size: .85rem;
+    padding: 8px 6px;
+    margin: 4px 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .qtd-adicionar:active { background: var(--rosa-escuro); }
+
+  /* Seletor de medida -- some se o produto não tiver medidas cadastradas
+     (ver produto.medidas, vindo de catalogo.php). Um botão por opção,
+     igual em espírito ao seletor de quantidade logo abaixo; a opção
+     escolhida fica destacada com o rosa da marca. */
+  .medida-linha {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
+    padding: 0 6px 6px;
+  }
+  .medida-btn {
+    border: 2px solid #ffd6e0;
+    background: white;
+    color: var(--rosa-escuro);
+    font-size: .74rem;
+    font-weight: 600;
+    padding: 4px 9px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .medida-btn.selecionada { background: var(--rosa); border-color: var(--rosa); color: white; }
+
+  #barra-finalizar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white;
+    box-shadow: 0 -4px 16px rgba(0,0,0,.1);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 12px;
+    z-index: 50;
+  }
+  #contagem { flex: 1; font-size: .9rem; color: #7a6570; }
+  #barra-finalizar .btn { width: auto; padding: 12px 26px; margin: 0; }
+
+  #tela-sucesso, #tela-carregando {
+    text-align: center; padding: 60px 20px; display: none;
+  }
+  .sucesso-card {
+    background: var(--card-bg);
+    max-width: 380px; margin: 0 auto;
+    border-radius: 24px;
+    padding: 40px 28px;
+    box-shadow: var(--sombra);
+    animation: apareceSuave .4s ease;
+  }
+  .sucesso-icone {
+    width: 84px; height: 84px; margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white; font-size: 2.4rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    animation: popCheck .45s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 10px 24px rgba(224, 96, 127, .35);
+  }
+  .sucesso-card h2 { color: var(--rosa-escuro); margin: 0 0 10px; font-size: 1.4rem; }
+  .sucesso-resumo {
+    display: inline-block;
+    font-weight: 600; color: var(--rosa-escuro);
+    background: var(--fundo);
+    border-radius: 999px;
+    padding: 6px 16px;
+    margin: 0 0 16px;
+    font-size: .88rem;
+  }
+  .sucesso-detalhe { color: #7a6570; font-size: .9rem; margin: 0; line-height: 1.55; }
+
+  /* Popup de processamento -- mostrado ao clicar em "Finalizar", cobre a
+     tela enquanto o pedido é enviado. Os passos avançam num ritmo próprio
+     (ver marcarPassos no JS) e só entrega o resultado real depois que o
+     fetch de verdade também terminou -- rápida ou lenta, a pessoa sempre vê
+     a sequência completa em vez de um "Enviando..." piscando. */
+  #overlay-processando {
+    position: fixed; inset: 0;
+    background: rgba(74, 53, 64, .6);
+    backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+  }
+  #modal-processando {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 36px 28px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(224, 96, 127, .35);
+    animation: apareceSuave .35s ease;
+  }
+  @keyframes apareceSuave {
+    from { opacity: 0; transform: scale(.92) translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .spinner-anel {
+    width: 60px; height: 60px; margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 5px solid #ffe0e9;
+    border-top-color: var(--rosa);
+    animation: girar .85s linear infinite;
+  }
+  @keyframes girar { to { transform: rotate(360deg); } }
+  #modal-processando h2 { margin: 0 0 18px; color: var(--rosa-escuro); font-size: 1.1rem; }
+  #passos-processando {
+    list-style: none; margin: 0; padding: 0; text-align: left;
+    display: flex; flex-direction: column; gap: 13px;
+  }
+  #passos-processando li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .88rem; color: #c9b6bf;
+    transition: color .3s;
+  }
+  #passos-processando li.feito { color: var(--texto); font-weight: 500; }
+  .passo-check {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid #ffd6e0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .72rem; color: transparent;
+    transition: background .25s, border-color .25s;
+  }
+  #passos-processando li.feito .passo-check {
+    background: var(--rosa); border-color: var(--rosa); color: white;
+    animation: marcarCheck .32s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes marcarCheck { from { transform: scale(0); } to { transform: scale(1); } }
+  .check-final {
+    width: 72px; height: 72px; margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--azul));
+    color: white; font-size: 2rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    animation: popCheck .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes popCheck { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* Tela de revisão do pedido -- mostrada ao clicar em "Finalizar", antes
+     do modal de nome/telefone, pra dar pra conferir o que foi escolhido
+     antes de informar os dados. */
+  #modal-revisao {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--sombra);
+    text-align: center;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Edge legado */
+  }
+  #modal-revisao::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+  #modal-revisao h2 { margin-top: 0; color: var(--rosa-escuro); }
+  .revisao-item {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--fundo);
+    font-size: .88rem; text-align: left;
+  }
+  .revisao-item:last-child { border-bottom: none; }
+  .revisao-item-nome { color: var(--texto); }
+  .revisao-item-qtd { color: var(--rosa-escuro); font-weight: 700; white-space: nowrap; }
+  #total-revisao {
+    text-align: center; font-weight: 700; color: var(--rosa-escuro);
+    margin: 14px 0 4px; font-size: .95rem;
+  }
+
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="titulo-header">Baby Luz Confecção</h1>
+  <p id="subtitulo-header">Escolha os desenhos que você quer no seu pedido</p>
+</header>
+
+<div id="overlay-revisao" hidden>
+  <div id="modal-revisao">
+    <h2>Confira seu pedido 📝</h2>
+    <div id="lista-revisao"></div>
+    <div id="total-revisao"></div>
+    <button class="btn" id="btn-continuar-revisao">Continuar</button>
+    <button class="btn-secundario" id="btn-voltar-revisao">Voltar aos desenhos</button>
+  </div>
+</div>
+
+<div id="overlay" hidden>
+  <div id="modal">
+    <h2>Só mais um passo! 💕</h2>
+    <p>Para finalizar seu pedido, informe:</p>
+    <input type="text" id="input-nome" placeholder="Nome do cliente" maxlength="255">
+    <input type="tel" id="input-telefone" placeholder="Seu telefone (com DDD)" maxlength="32">
+    <select id="input-representante">
+      <option value="">Selecione o representante</option>
+    </select>
+    <div id="modal-erro"></div>
+    <button class="btn" id="btn-confirmar-pedido">Enviar pedido</button>
+    <button class="btn-secundario" id="btn-cancelar-pedido">Voltar aos desenhos</button>
+  </div>
+</div>
+
+<main>
+  <div id="tela-carregando">Carregando catálogo...</div>
+  <div id="grade" hidden></div>
+  <div id="tela-sucesso">
+    <div class="sucesso-card">
+      <div class="sucesso-icone">✓</div>
+      <h2>Pedido enviado! 🎉</h2>
+      <div class="sucesso-resumo" id="sucesso-resumo"></div>
+      <p class="sucesso-detalhe">
+        Recebemos sua escolha certinho. Em breve entraremos em contato pelo
+        telefone que você informou 💕
+      </p>
+      <button class="btn" id="btn-novo-pedido" style="margin-top:20px;">Fazer novo pedido</button>
+    </div>
+  </div>
+</main>
+
+<div id="lightbox-overlay" hidden>
+  <div id="lightbox-conteudo">
+    <button type="button" id="lightbox-fechar" aria-label="Fechar">✕</button>
+    <img id="lightbox-imagem" src="" alt="">
+    <div class="ref" id="lightbox-ref"></div>
+  </div>
+</div>
+
+<div id="barra-finalizar" hidden>
+  <div id="contagem">0 selecionado(s)</div>
+  <button class="btn" id="btn-finalizar">Visualizar pedido</button>
+</div>
+
+<div id="overlay-processando" hidden>
+  <div id="modal-processando">
+    <div class="spinner-anel"></div>
+    <h2>Enviando seu pedido...</h2>
+    <ul id="passos-processando">
+      <li><span class="passo-check">✓</span> Confirmando seus desenhos</li>
+      <li><span class="passo-check">✓</span> Registrando seu pedido</li>
+      <li><span class="passo-check">✓</span> Quase pronto!</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const API = '/api';
+
+// Carrinho: chave = catalogo_nome + '|||' + referencia (a mesma referência
+// -- "REF 1", por exemplo -- existe em vários catálogos diferentes, então
+// só a referência não identifica a figura sozinha). Cada entrada guarda o
+// produto original (pra imagem/nome) e a quantidade escolhida.
+const carrinho = new Map();
+
+// Pedido mínimo por figura é sempre em lotes de 7 -- "Adicionar" já entra
+// com 7, "+"/"−" andam de 7 em 7, e nunca desce de 7 (ver definirQuantidade
+// em montarProdutosDoCatalogo).
+const QUANTIDADE_MINIMA = 7;
+const QUANTIDADE_PASSO = 7;
+
+function chaveProduto(produto) {
+  return `${produto.catalogo_nome}|||${produto.referencia}`;
+}
+
+function carregarClienteSalvo() {
+  try {
+    const salvo = localStorage.getItem('babyluz_cliente');
+    return salvo ? JSON.parse(salvo) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function salvarCliente(dados) {
+  try {
+    localStorage.setItem('babyluz_cliente', JSON.stringify(dados));
+  } catch (e) {
+    // localStorage indisponível (aba anônima, etc) -- sem problema, só vai
+    // pedir nome/telefone de novo na próxima visita.
+  }
+}
+
+// Link personalizado (?c=codigo) -- gerado pelo "Catálogo Personalizado"
+// no programa: mostra só o catálogo escolhido pra esse cliente, com o
+// nome dele no topo, em vez da vitrine geral com todos os catálogos.
+const codigoPersonalizado = new URLSearchParams(location.search).get('c');
+
+carregarCatalogo();
+carregarRepresentantes();
+
+// Lista de representantes ativos pro seletor obrigatório do pedido (ver
+// #overlay) -- carregada uma vez já no início; se der errado, tenta de novo
+// na hora de abrir o formulário (mostrarFormulario), pra não deixar a
+// cliente travada com o seletor vazio por causa de uma falha passageira.
+async function carregarRepresentantes() {
+  const select = document.getElementById('input-representante');
+  try {
+    const resp = await fetch(`${API}/representantes_publicos.php?_=${Date.now()}`, { cache: 'no-store' });
+    const representantes = await resp.json();
+    select.innerHTML = '<option value="">Selecione o representante</option>'
+      + representantes.map((r) => `<option value="${r.id}">${r.nome}</option>`).join('');
+  } catch (e) {
+    // mantém só a opção padrão -- mostrarFormulario tenta de novo antes de abrir.
+  }
+}
+
+async function carregarCatalogo() {
+  document.getElementById('tela-carregando').style.display = 'block';
+  try {
+    if (codigoPersonalizado) {
+      // cache: 'no-store' + timestamp -- mesmo motivo do catalogo.php normal
+      // (ver comentário abaixo), aplicado aqui também.
+      const resp = await fetch(
+        `${API}/catalogo_personalizado.php?c=${encodeURIComponent(codigoPersonalizado)}&_=${Date.now()}`,
+        { cache: 'no-store' });
+      if (!resp.ok) throw new Error('link não encontrado');
+      const dados = await resp.json();
+      document.getElementById('titulo-header').textContent = `Catálogo para ${dados.cliente_nome}`;
+      document.getElementById('subtitulo-header').textContent =
+        'Escolha os desenhos que você quer no seu pedido';
+      montarGrade(dados.produtos, true);
+      return;
+    }
+    // cache: 'no-store' + a timestamp in the URL -- belt-and-suspenders
+    // against a stale catalog: catalogo.php already sends Cache-Control:
+    // no-store itself, but a platform-level cache in front of it (proxy/
+    // CDN) can apply its own rule by URL pattern before origin headers are
+    // even read, and a changing query string defeats that either way.
+    const resp = await fetch(`${API}/catalogo.php?_=${Date.now()}`, { cache: 'no-store' });
+    const produtos = await resp.json();
+    montarGrade(produtos);
+  } catch (e) {
+    document.getElementById('tela-carregando').textContent =
+      'Não consegui carregar o catálogo agora. Tenta recarregar a página.';
+  }
+}
+
+function montarGrade(produtos, abrirPrimeiroAutomaticamente) {
+  document.getElementById('tela-carregando').style.display = 'none';
+  const grade = document.getElementById('grade');
+  grade.hidden = false;
+  document.getElementById('barra-finalizar').hidden = false;
+
+  const porCatalogo = new Map();
+  for (const produto of produtos) {
+    const nomeCatalogo = produto.catalogo_nome || 'Outros';
+    if (!porCatalogo.has(nomeCatalogo)) {
+      porCatalogo.set(nomeCatalogo, []);
+    }
+    porCatalogo.get(nomeCatalogo).push(produto);
+  }
+
+  // Sanfona: só um catálogo aberto por vez -- abrir um fecha o anterior
+  // automaticamente, em vez de deixar vários abertos ao mesmo tempo.
+  let catalogoAberto = null;
+  let primeiroBotao = null;
+
+  for (const [nomeCatalogo, itensDoCatalogo] of porCatalogo) {
+    const secao = document.createElement('div');
+    secao.className = 'secao-catalogo';
+
+    // Fecha por padrão -- só monta as fotos desse catálogo (e só então
+    // carrega as imagens) quando a pessoa realmente clica pra abrir, em vez
+    // de despejar todos os catálogos abertos de uma vez, o que deixava
+    // tudo bagunçado e dava preguiça de rolar pra ver.
+    const botao = document.createElement('button');
+    botao.type = 'button';
+    botao.className = 'catalogo-botao';
+    botao.innerHTML = `
+      <span class="catalogo-botao-nome">${nomeCatalogo}</span>
+      <span class="catalogo-botao-info">
+        <span class="catalogo-botao-seta">▾</span>
+      </span>
+    `;
+    secao.appendChild(botao);
+
+    const gradeDoCatalogo = document.createElement('div');
+    gradeDoCatalogo.className = 'grade-produtos';
+    gradeDoCatalogo.hidden = true;
+    secao.appendChild(gradeDoCatalogo);
+
+    let montado = false;
+    botao.addEventListener('click', () => {
+      const estaAberto = !gradeDoCatalogo.hidden;
+
+      if (catalogoAberto && catalogoAberto.grade !== gradeDoCatalogo) {
+        catalogoAberto.grade.hidden = true;
+        catalogoAberto.botao.classList.remove('aberto');
+      }
+
+      if (estaAberto) {
+        gradeDoCatalogo.hidden = true;
+        botao.classList.remove('aberto');
+        catalogoAberto = null;
+        return;
+      }
+
+      if (!montado) {
+        montarProdutosDoCatalogo(gradeDoCatalogo, itensDoCatalogo);
+        montado = true;
+      }
+      gradeDoCatalogo.hidden = false;
+      botao.classList.add('aberto');
+      catalogoAberto = { botao, grade: gradeDoCatalogo };
+    });
+
+    grade.appendChild(secao);
+    if (!primeiroBotao) primeiroBotao = botao;
+  }
+
+  // Link personalizado: só tem um catálogo mesmo, então já abre direto
+  // pro cliente ver as figuras sem precisar clicar pra expandir.
+  if (abrirPrimeiroAutomaticamente && primeiroBotao) {
+    primeiroBotao.click();
+  }
+}
+
+function montarProdutosDoCatalogo(container, itens) {
+  for (const produto of itens) {
+    const medidas = Array.isArray(produto.medidas) ? produto.medidas : [];
+    // Medida escolhida agora mora fora do carrinho (não só dentro da
+    // entrada do Map) porque a pessoa pode trocar de ideia depois de já
+    // ter adicionado a figura -- o seletor precisa continuar respondendo
+    // mesmo com o item já no carrinho, sem precisar remover e re-adicionar.
+    let medidaEscolhida = medidas[0] || null;
+
+    const card = document.createElement('div');
+    card.className = 'produto';
+    card.innerHTML = `
+      <img src="${produto.imagem_url}" alt="${produto.referencia}" loading="lazy">
+      <div class="ref">${produto.referencia}${produto.nome ? ' · ' + produto.nome : ''}</div>
+      ${medidas.length > 0 ? `<div class="medida-linha"></div>` : ''}
+      <button type="button" class="qtd-adicionar">Adicionar</button>
+      <div class="qtd-linha" hidden>
+        <button type="button" class="qtd-btn qtd-menos">−</button>
+        <span class="qtd-valor">7</span>
+        <button type="button" class="qtd-btn qtd-mais">+</button>
+      </div>
+    `;
+    const botaoAdicionar = card.querySelector('.qtd-adicionar');
+    const linhaQtd = card.querySelector('.qtd-linha');
+    const valorEl = card.querySelector('.qtd-valor');
+    const linhaMedida = card.querySelector('.medida-linha');
+
+    const atualizarCard = (quantidade) => {
+      if (quantidade > 0) {
+        card.classList.add('selecionado');
+        botaoAdicionar.hidden = true;
+        linhaQtd.hidden = false;
+        valorEl.textContent = quantidade;
+      } else {
+        card.classList.remove('selecionado');
+        botaoAdicionar.hidden = false;
+        linhaQtd.hidden = true;
+      }
+    };
+
+    const definirQuantidade = (quantidade) => {
+      const chave = chaveProduto(produto);
+      if (quantidade <= 0) {
+        carrinho.delete(chave);
+        atualizarCard(0);
+      } else {
+        quantidade = Math.min(quantidade, 98); // maior múltiplo de 7 até 99
+        carrinho.set(chave, { produto, quantidade, medida: medidaEscolhida });
+        atualizarCard(quantidade);
+      }
+      atualizarContagem();
+    };
+
+    if (linhaMedida) {
+      for (const medida of medidas) {
+        const botaoMedida = document.createElement('button');
+        botaoMedida.type = 'button';
+        botaoMedida.className = 'medida-btn' + (medida === medidaEscolhida ? ' selecionada' : '');
+        botaoMedida.textContent = medida;
+        botaoMedida.addEventListener('click', () => {
+          medidaEscolhida = medida;
+          linhaMedida.querySelectorAll('.medida-btn').forEach((b) => {
+            b.classList.toggle('selecionada', b.textContent === medida);
+          });
+          // Já no carrinho: atualiza a medida do item existente sem mexer
+          // na quantidade nem exigir remover/re-adicionar.
+          const chave = chaveProduto(produto);
+          const atual = carrinho.get(chave);
+          if (atual) {
+            carrinho.set(chave, { ...atual, medida: medidaEscolhida });
+          }
+        });
+        linhaMedida.appendChild(botaoMedida);
+      }
+    }
+
+    botaoAdicionar.addEventListener('click', () => definirQuantidade(QUANTIDADE_MINIMA));
+    card.querySelector('.qtd-mais').addEventListener('click', () => {
+      const atual = carrinho.get(chaveProduto(produto));
+      definirQuantidade((atual ? atual.quantidade : 0) + QUANTIDADE_PASSO);
+    });
+    card.querySelector('.qtd-menos').addEventListener('click', () => {
+      const atual = carrinho.get(chaveProduto(produto));
+      // Desce até zerar (definirQuantidade trata <=0 como "remove do
+      // carrinho e volta a mostrar o botão Adicionar") -- antes ficava
+      // travado em QUANTIDADE_MINIMA e nunca desmarcava a figura.
+      definirQuantidade((atual ? atual.quantidade : 0) - QUANTIDADE_PASSO);
+    });
+    card.querySelector('img').addEventListener('click', () => abrirLightbox(produto));
+
+    container.appendChild(card);
+  }
+}
+
+// Zoom da figura: miniatura pequena no card é difícil de ver em detalhe,
+// clicar nela abre a mesma imagem grande e centralizada por cima de tudo.
+const lightboxOverlay = document.getElementById('lightbox-overlay');
+const lightboxImagem = document.getElementById('lightbox-imagem');
+const lightboxRef = document.getElementById('lightbox-ref');
+
+function abrirLightbox(produto) {
+  lightboxImagem.src = produto.imagem_grande_url || produto.imagem_url;
+  lightboxImagem.alt = produto.referencia;
+  lightboxRef.textContent = produto.referencia + (produto.nome ? ' · ' + produto.nome : '');
+  lightboxOverlay.hidden = false;
+}
+
+function fecharLightbox() {
+  lightboxOverlay.hidden = true;
+  lightboxImagem.src = '';
+}
+
+document.getElementById('lightbox-fechar').addEventListener('click', fecharLightbox);
+lightboxOverlay.addEventListener('click', (evento) => {
+  if (evento.target === lightboxOverlay) fecharLightbox();
+});
+document.addEventListener('keydown', (evento) => {
+  if (evento.key === 'Escape' && !lightboxOverlay.hidden) fecharLightbox();
+});
+
+function totalItens() {
+  let total = 0;
+  for (const { quantidade } of carrinho.values()) {
+    total += quantidade;
+  }
+  return total;
+}
+
+function atualizarContagem() {
+  document.getElementById('contagem').textContent = `${totalItens()} selecionado(s)`;
+}
+
+document.getElementById('btn-finalizar').addEventListener('click', () => {
+  if (carrinho.size === 0) {
+    alert('Escolhe pelo menos um desenho antes de finalizar.');
+    return;
+  }
+  mostrarRevisaoPedido();
+});
+
+function mostrarRevisaoPedido() {
+  const lista = document.getElementById('lista-revisao');
+  lista.innerHTML = '';
+  for (const { produto, quantidade, medida } of carrinho.values()) {
+    const linha = document.createElement('div');
+    linha.className = 'revisao-item';
+    const nome = produto.referencia + (produto.nome ? ' · ' + produto.nome : '')
+      + (medida ? ' · ' + medida : '');
+    linha.innerHTML = `<span class="revisao-item-nome">${nome}</span>`
+      + `<span class="revisao-item-qtd">${quantidade}x</span>`;
+    lista.appendChild(linha);
+  }
+  document.getElementById('total-revisao').textContent = `Total: ${totalItens()} peça(s)`;
+  document.getElementById('overlay-revisao').hidden = false;
+}
+
+document.getElementById('btn-voltar-revisao').addEventListener('click', () => {
+  document.getElementById('overlay-revisao').hidden = true;
+});
+
+document.getElementById('btn-continuar-revisao').addEventListener('click', () => {
+  document.getElementById('overlay-revisao').hidden = true;
+
+  // Cliente já identificado antes (localStorage) -- pré-preenche em vez de
+  // pedir de novo, mas os campos continuam editáveis (pode ser outro
+  // pedido com outro representante, por exemplo). O representante nunca
+  // vem do localStorage -- é obrigatório escolher de novo a cada pedido.
+  const clienteSalvo = carregarClienteSalvo();
+  document.getElementById('input-nome').value = clienteSalvo?.nome || '';
+  document.getElementById('input-telefone').value = clienteSalvo?.telefone || '';
+  document.getElementById('input-representante').value = '';
+  document.getElementById('modal-erro').textContent = '';
+
+  const selectRepresentante = document.getElementById('input-representante');
+  if (selectRepresentante.options.length <= 1) {
+    carregarRepresentantes(); // primeira tentativa falhou -- tenta de novo
+  }
+
+  document.getElementById('overlay').hidden = false;
+});
+
+document.getElementById('btn-cancelar-pedido').addEventListener('click', () => {
+  document.getElementById('overlay').hidden = true;
+});
+
+document.getElementById('btn-confirmar-pedido').addEventListener('click', () => {
+  const nome = document.getElementById('input-nome').value.trim();
+  const telefone = document.getElementById('input-telefone').value.trim();
+  const representanteId = document.getElementById('input-representante').value;
+  const erro = document.getElementById('modal-erro');
+  if (!nome || !telefone) {
+    erro.textContent = 'Preenche nome e telefone, por favor.';
+    return;
+  }
+  if (!representanteId) {
+    erro.textContent = 'Escolhe o representante, por favor.';
+    return;
+  }
+  const cliente = { nome, telefone, representanteId };
+  salvarCliente({ nome, telefone });
+  document.getElementById('overlay').hidden = true;
+  enviarPedido(cliente);
+});
+
+async function enviarPedido(cliente) {
+  const botao = document.getElementById('btn-finalizar');
+  botao.disabled = true;
+
+  const overlay = document.getElementById('overlay-processando');
+  const modal = document.getElementById('modal-processando');
+  const totalPedido = totalItens();
+
+  // Passos avançam no próprio ritmo (não são o request real acontecendo
+  // "ao vivo" -- isso ia embutir/expor detalhe técnico irrelevante pra
+  // cliente) -- mas o resultado final só aparece depois que o fetch de
+  // verdade também terminou (Promise.all abaixo), então um pedido lento
+  // nunca mostra "pronto" antes da hora, só continua nos passos.
+  modal.innerHTML = `
+    <div class="spinner-anel"></div>
+    <h2>Enviando seu pedido...</h2>
+    <ul id="passos-processando">
+      <li><span class="passo-check">✓</span> Confirmando seus desenhos</li>
+      <li><span class="passo-check">✓</span> Registrando seu pedido</li>
+      <li><span class="passo-check">✓</span> Quase pronto!</li>
+    </ul>
+  `;
+  overlay.hidden = false;
+
+  const animarPassos = (async () => {
+    const passos = Array.from(modal.querySelectorAll('#passos-processando li'));
+    for (const passo of passos) {
+      await new Promise((r) => setTimeout(r, 550 + Math.random() * 250));
+      passo.classList.add('feito');
+    }
+  })();
+
+  const enviarAoServidor = (async () => {
+    const itens = Array.from(carrinho.values()).map(({ produto, quantidade, medida }) => ({
+      catalogo_nome: produto.catalogo_nome,
+      referencia: produto.referencia,
+      quantidade,
+      medida: medida || null,
+    }));
+    const resp = await fetch(`${API}/finalizar.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome: cliente.nome, telefone: cliente.telefone,
+        representante_id: Number(cliente.representanteId), itens,
+      }),
+    });
+    const data = await resp.json();
+    if (!resp.ok || !data.ok) {
+      throw new Error(data.erro || 'erro desconhecido');
+    }
+  })();
+
+  try {
+    await Promise.all([animarPassos, enviarAoServidor]);
+
+    modal.innerHTML = `
+      <div class="check-final">✓</div>
+      <h2>Tudo certo!</h2>
+      <p style="color:#7a6570; font-size:.88rem; margin:0;">Redirecionando...</p>
+    `;
+    await new Promise((r) => setTimeout(r, 850));
+
+    overlay.hidden = true;
+    document.getElementById('grade').hidden = true;
+    document.getElementById('barra-finalizar').hidden = true;
+    document.getElementById('sucesso-resumo').textContent =
+      `Você escolheu ${totalPedido} desenho(s)`;
+    document.getElementById('tela-sucesso').style.display = 'block';
+  } catch (e) {
+    overlay.hidden = true;
+    alert('Não consegui enviar seu pedido. Tenta de novo em instantes.');
+    botao.disabled = false;
+  }
+}
+
+// Recarrega a página do zero -- simplesmente reabrir a grade/carrinho aqui
+// deixaria o carrinho antigo (já enviado) ainda selecionado; um reload
+// garante que ela começa igual a quem tivesse acabado de abrir o link.
+document.getElementById('btn-novo-pedido').addEventListener('click', () => {
+  location.reload();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?php
+// Helpers compartilhados pelo WebPedido (criar_link_pedido.php + pedido_dados.php).
+// "Mesma cliente" = mesmo nome (sem diferença de maiúscula/acento/espaço extra)
+// E mesmo telefone (só os dígitos, sem DDI 55) -- assim "Elaine" / "elaine " e
+// "(11) 99999-9999" / "11999999999" caem no mesmo link, em vez de virar
+// várias clientes separadas.
+
+function pedido_normalizar_nome(string $nome): string {
+    $nome = mb_strtolower(trim($nome), 'UTF-8');
+    $comAcento = ['á','à','â','ã','ä','é','è','ê','ë','í','ì','î','ï','ó','ò','ô','õ','ö','ú','ù','û','ü','ç'];
+    $semAcento = ['a','a','a','a','a','e','e','e','e','i','i','i','i','o','o','o','o','o','u','u','u','u','c'];
+    $nome = str_replace($comAcento, $semAcento, $nome);
+    $nome = preg_replace('/\s+/u', ' ', $nome);
+    return mb_substr($nome, 0, 120, 'UTF-8');
+}
+
+function pedido_normalizar_telefone(string $telefone): string {
+    $digitos = preg_replace('/\D+/', '', $telefone);
+    // DDI do Brasil digitado à frente (55 + DDD + número = 12/13 dígitos).
+    if (strlen($digitos) >= 12 && substr($digitos, 0, 2) === '55') {
+        $digitos = substr($digitos, 2);
+    }
+    return substr($digitos, 0, 32);
+}
+
+function pedido_garantir_tabela_links(PDO $pdo): void {
+    // nome_key limitado a 120 chars pro índice único caber no limite de
+    // 767 bytes de índices InnoDB antigos (utf8mb4 = 4 bytes/char).
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS pedido_links (
+            codigo VARCHAR(64) PRIMARY KEY,
+            nome_exibicao VARCHAR(255) NOT NULL,
+            nome_key VARCHAR(120) NOT NULL,
+            telefone_key VARCHAR(32) NOT NULL,
+            criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY uq_cliente (nome_key, telefone_key)
+        ) DEFAULT CHARSET=utf8mb4
+    ");
+}
+
+// Todos os pedidos (pendente + validado; "excluido" nunca aparece) dessa
+// cliente, já com os itens. Retorna lista de itens crus (um por linha de
+// pedido_itens) -- quem chama agrega como precisar.
+function pedido_buscar_itens_da_cliente(PDO $pdo, string $nome_key, string $telefone_key): array {
+    try {
+        $pdo->exec("ALTER TABLE pedido_itens ADD COLUMN quantidade INT NOT NULL DEFAULT 1");
+    } catch (Exception $e) {
+        // coluna já existe.
+    }
+    try {
+        $pdo->exec("ALTER TABLE pedido_itens ADD COLUMN medida VARCHAR(50) NULL");
+    } catch (Exception $e) {
+        // coluna já existe.
+    }
+    try {
+        $pdo->exec("ALTER TABLE produtos ADD COLUMN imagem_grande_arquivo VARCHAR(255) NULL");
+    } catch (Exception $e) {
+        // coluna já existe.
+    }
+
+    $candidatos = $pdo->query("
+        SELECT p.id AS pedido_id, c.nome, c.telefone
+        FROM pedidos p JOIN clientes c ON c.id = p.cliente_id
+        WHERE p.status IN ('pendente', 'validado')
+    ")->fetchAll();
+
+    $pedido_ids = [];
+    foreach ($candidatos as $c) {
+        if (pedido_normalizar_nome((string)$c['nome']) === $nome_key
+            && pedido_normalizar_telefone((string)$c['telefone']) === $telefone_key) {
+            $pedido_ids[] = (int)$c['pedido_id'];
+        }
+    }
+    if (count($pedido_ids) === 0) {
+        return [];
+    }
+
+    // ids são inteiros já convertidos acima -- seguro inline no IN().
+    $lista = implode(',', $pedido_ids);
+    return $pdo->query("
+        SELECT pi.pedido_id, pr.id AS produto_id, pr.catalogo_nome, pr.referencia, pr.nome,
+               pr.imagem_arquivo, pr.imagem_grande_arquivo,
+               COALESCE(pi.quantidade, 1) AS quantidade, pi.medida
+        FROM pedido_itens pi JOIN produtos pr ON pr.id = pi.produto_id
+        WHERE pi.pedido_id IN ($lista)
+        ORDER BY pr.catalogo_nome, pr.id
+    ")->fetchAll();
+}
