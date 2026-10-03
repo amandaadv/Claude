@@ -5,8 +5,10 @@ análise técnica). Stack: Next.js 16 (App Router) + TypeScript + Tailwind + Pri
 
 ## Rodar localmente
 
+Funciona igual no Windows (cmd/PowerShell), Mac e Linux — não precisa copiar `.env` manualmente,
+isso acontece sozinho no primeiro comando:
+
 ```bash
-cp .env.example .env          # ajuste NEXTAUTH_SECRET em produção
 npm install
 npm run db:push               # cria o banco (SQLite em dev) a partir do schema.prisma
 npm run db:seed               # cria o usuário admin + dados de exemplo
@@ -15,16 +17,16 @@ npm run dev
 
 Login padrão (seed): `admin@babyluzconfeccao.com.br` / `babyluz2026` — **troque depois do primeiro acesso**.
 
-### Erro "Cannot find module '.prisma/client/default'"
+### Resolução de problemas
 
-Significa que o Prisma Client não foi gerado. Resolve com:
-
-```bash
-npx prisma generate
-```
-
-(o `npm install` já roda isso automaticamente via `postinstall` — se ainda acontecer depois de
-um `npm install` novo, rode o comando acima manualmente.)
+- **"Cannot find module '.prisma/client/default'"** — o Prisma Client não foi gerado.
+  Resolve com `npx prisma generate` (o `npm install` já roda isso sozinho via `postinstall`).
+- **"Environment variable not found: DATABASE_URL"** ou `[next-auth][error][NO_SECRET]`
+  — o arquivo `.env` não existe. Todo comando (`dev`, `build`, `db:push`, `db:seed`) já cria
+  ele sozinho agora; se mesmo assim acontecer, rode `node scripts/ensure-env.js` manualmente.
+- **"localhost recusou-se a conectar" no navegador** — o terminal rodando `npm run dev`
+  fechou ou travou. Abra um terminal na pasta `web` e rode `npm run dev` de novo; só volte
+  pro navegador depois de ver a linha `✓ Ready`.
 
 ## O que já está aqui
 

@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "prisma generate",
+    "postinstall": "node scripts/ensure-env.js && prisma generate",
+    "predev": "node scripts/ensure-env.js",
+    "prebuild": "node scripts/ensure-env.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:push": "node scripts/ensure-env.js && prisma db push",
+    "db:seed": "node scripts/ensure-env.js && tsx prisma/seed.ts"
   },
   "dependencies": {
     "next": "16.3.8",
