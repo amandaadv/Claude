@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 250 250 252;
+  --bg-elevated: 255 255 255;
+}
+
+.dark {
+  --bg: 10 10 16;
+  --bg-elevated: 20 21 32;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color-scheme: inherit;
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgb(255 143 171 / 0.4);
+    border-radius: 999px;
+  }
+}

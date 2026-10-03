@@ -1,0 +1,207 @@
+// BabyLuz Web — schema unificado (substitui o SQLite local do app desktop
+// + o MySQL do site PHP por um único banco). Ver doc de análise técnica
+// para o mapeamento completo tabela a tabela.
+//
+// Dev usa SQLite (zero setup); troque "provider" para "postgresql" em
+// produção (basta mudar DATABASE_URL e rodar `prisma migrate`) — aí os
+// campos de status abaixo podem voltar a ser enums nativos do Postgres.
+// Em SQLite enum não é suportado, por isso são String com os valores
+// documentados em src/lib/constants.ts.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("OPERADOR") // ADMIN | OPERADOR | REPRESENTANTE
+  avatarColor  String   @default("#ff8fab")
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime?
+}
+
+model Catalog {
+  id               String    @id @default(cuid())
+  name             String
+  category         String?
+  collection       String?
+  year             Int?
+  manufacturer     String?
+  notes            String?
+  masterCdrPath    String?
+  status           String    @default("PRONTO") // PROCESSANDO | PRONTO | FALHOU
+  material         String    @default("TEXTIL") // TEXTIL | UV | TEXTIL_UV
+  categoriaSite    String?                        // APLIQUE | FAIXA
+  defaultWidthMm   Float?
+  defaultHeightMm  Float?
+  availableSizes   String?   // CSV
+  displayOrder     Int       @default(0)
+  isPrivate        Boolean   @default(false)
+  publishedAt      DateTime?
+  coverImageUrl    String?
+  createdAt        DateTime  @default(now())
+
+  arts        CatalogArt[]
+  queueItems  ProductionQueueItem[] @relation("CatalogQueueItems")
+}
+
+model CatalogArt {
+  id                 String   @id @default(cuid())
+  catalogId          String
+  catalog            Catalog  @relation(fields: [catalogId], references: [id], onDelete: Cascade)
+  reference          String?
+  pageNumber         Int      @default(1)
+  isComposite        Boolean  @default(false)
+  originalImageUrl   String?
+  previewImageUrl    String?
+  widthPx            Int?
+  heightPx           Int?
+  sourceType         String   @default("MasterCdrShape")
+  overrideWidthMm    Float?
+  overrideHeightMm   Float?
+  reviewStatus       String   @default("PENDENTE") // PENDENTE | APROVADO
+  enhancedAt         DateTime?
+  createdAt          DateTime @default(now())
+
+  queueItems      ProductionQueueItem[]
+  productionItems ProductionItem[]
+
+  @@index([catalogId])
+  @@index([reference])
+}
+
+model ProductionProfile {
+  id                     String  @id @default(cuid())
+  name                   String
+  widthMm                Float
+  heightMm               Float
+  marginLeftMm           Float   @default(5)
+  marginRightMm          Float   @default(5)
+  marginTopMm            Float   @default(5)
+  marginBottomMm         Float   @default(5)
+  spacingHMm             Float   @default(3)
+  spacingVMm             Float   @default(3)
+  keepAspectRatioDefault Boolean @default(true)
+  isDefault              Boolean @default(false)
+  material               String? // TEXTIL | UV | TEXTIL_UV
+
+  productions Production[]
+}
+
+model ProductionQueueItem {
+  id                    String     @id @default(cuid())
+  catalogId             String?
+  catalog               Catalog?   @relation("CatalogQueueItems", fields: [catalogId], references: [id])
+  catalogArtId          String
+  catalogArt            CatalogArt @relation(fields: [catalogArtId], references: [id])
+  widthMm               Float
+  heightMm              Float
+  quantity              Int?
+  status                String     @default("PENDENTE") // PENDENTE | PRODUZIDO
+  clientName            String?
+  clientPhone           String?
+  clientRepresentative  String?
+  medidaTexto           String?
+  orderBatchId          String?
+  createdAt             DateTime   @default(now())
+}
+
+model Production {
+  id                   String            @id @default(cuid())
+  profileId            String
+  profile              ProductionProfile @relation(fields: [profileId], references: [id])
+  cdrFileUrl           String?
+  status               String            @default("Concluida")
+  clientName           String?
+  clientPhone          String?
+  clientRepresentative String?
+  createdAt            DateTime          @default(now())
+
+  items ProductionItem[]
+}
+
+model ProductionItem {
+  id              String     @id @default(cuid())
+  productionId    String
+  production      Production @relation(fields: [productionId], references: [id], onDelete: Cascade)
+  catalogArtId    String
+  catalogArt      CatalogArt @relation(fields: [catalogArtId], references: [id])
+  reference       String?
+  widthMm         Float
+  heightMm        Float
+  nominalWidthMm  Float?
+  nominalHeightMm Float?
+  orientation     String     @default("Normal") // Normal | Rotated90
+  quantity        Int
+  pageNumber      Int        @default(1)
+  medidaTexto     String?
+}
+
+model ProductPrice {
+  id        String @id @default(cuid())
+  tipo      String
+  material  String // TEXTIL | UV | TEXTIL_UV
+  larguraCm Float
+  alturaCm  Float
+  valor     Float
+
+  @@unique([tipo, material, larguraCm, alturaCm])
+}
+
+model Representante {
+  id        String   @id @default(cuid())
+  nome      String
+  usuario   String   @unique
+  senhaHash String
+  regiao    String?
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Pedido {
+  id              String   @id @default(cuid())
+  clienteNome     String
+  clienteTelefone String
+  representanteId String?
+  status          String   @default("PENDENTE") // PENDENTE | VALIDADO | EXCLUIDO
+  createdAt       DateTime @default(now())
+
+  itens PedidoItem[]
+}
+
+model PedidoItem {
+  id         String @id @default(cuid())
+  pedidoId   String
+  pedido     Pedido @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  catalogo   String
+  referencia String
+  tipo       String?
+  medida     String?
+  quantidade Int
+}
+
+// Fila de jobs para o worker Windows/CorelDRAW (Fase 2 do plano de migração)
+model RenderJob {
+  id           String    @id @default(cuid())
+  type         String    // IMPORTAR_MASTER | GERAR_PRODUCAO | GERAR_CATALOGO_3_MEDIDAS | MONTAR_FOLHA | CORRIGIR_TAMANHO | CONVERTER_VERSAO
+  status       String    @default("PENDENTE") // PENDENTE | EXECUTANDO | CONCLUIDO | FALHOU
+  payload      String    // JSON serializado do pedido do job
+  resultUrl    String?
+  errorMessage String?
+  createdAt    DateTime  @default(now())
+  startedAt    DateTime?
+  finishedAt   DateTime?
+}
+
+model Setting {
+  key   String @id
+  value String
+}
